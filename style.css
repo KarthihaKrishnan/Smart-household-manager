@@ -65,13 +65,11 @@ h1 {
 }
 
 #scanner {
-    width: 100%;
-    max-width: 350px;
-    height: auto;
-    display: block; /* 👈 MUST BE BLOCK */
+    position: relative;
+    z-index: 5;        /* bring video above black background */
+    opacity: 1;        /* ensure visible */
+    background: transparent;
 }
-
-
 
 .camera-container {
     display: none;
@@ -93,7 +91,7 @@ h1 {
     height: 35%;
     border: 5px solid red;
     transform: translate(-50%, -50%);
-    z-index: 2; /* overlay on top of video */
+    z-index: 10; /* overlay on top of video */
     border-radius: 10px;
 }
 
