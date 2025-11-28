@@ -55,6 +55,7 @@ function updateUI() {
         scan.type = "button";
         scan.addEventListener("click", () => {
             pendingIndex = index;
+            showCamera();
         });
 
         const badge = document.createElement("span");
@@ -134,6 +135,7 @@ function handleScan(scannedCode) {
         items[pendingIndex].barcode = scannedCode;
         pendingIndex = null;
         updateUI();
+        hideCamera();
     }else{
         let found = false;
         for (let i = 0; i < items.length; i++) {
@@ -154,6 +156,16 @@ function handleScan(scannedCode) {
             console.log("Item not in list")
         }
     }
+}
+
+function showCamera() {
+    const cam = document.querySelector('.camera-container');
+    cam.style.display ='block';
+}
+
+function hideCamera() {
+    const cam = document.querySelector('.camera-container');
+    cam.style.display = 'none';
 }
 
 
