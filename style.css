@@ -95,3 +95,7 @@ h1 {
 .scan-box {
     display: none;
 }
+
+.camera-container {
+    display: none;
+}
