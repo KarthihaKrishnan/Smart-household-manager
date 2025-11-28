@@ -25,9 +25,6 @@ addButton.addEventListener("click", () => {
     updateUI();
 });
 
-startCamera();
-startScanner();
-
 function updateUI() {
     const purchasedList = document.getElementById("purchasedList");
     listBox.innerHTML = "";
@@ -56,6 +53,8 @@ function updateUI() {
         scan.addEventListener("click", () => {
             pendingIndex = index;
             showCamera();
+            startCamera();
+            startScanner();
         });
 
         const badge = document.createElement("span");
@@ -166,6 +165,10 @@ function showCamera() {
 function hideCamera() {
     document.querySelector(".camera-container").style.display = "none";
     document.querySelector(".scan-box").style.display = "none";
+    if (scanner.srcObject) {
+        scanner.srcObject.getTracks().forEach(track => track.stop());
+        scanner.srcObject = null;
+    }
 }
 
 
