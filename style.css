@@ -66,11 +66,11 @@ h1 {
 
 #scanner {
     width: 100%;
+    max-width: 350px;
     height: auto;
-    object-fit: cover;
-    z-index: 1;
-    position: relative;
+    display: block; /* 👈 MUST BE BLOCK */
 }
+
 
 
 .camera-container {

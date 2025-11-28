@@ -100,6 +100,8 @@ async function startCamera() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: "environment"}});
         scanner.srcObject = stream;
+        scanner.style.display = "block";
+
     }
     catch {
         console.log("Camera permission denied or not available");
