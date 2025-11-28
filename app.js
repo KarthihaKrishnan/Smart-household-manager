@@ -55,6 +55,9 @@ function updateUI() {
             showCamera();
             startCamera();
             startScanner();
+            // Pre-unlock audio with a manual tap
+            const unlock = new Audio("beep.mp3");
+            unlock.play().catch(() => {});
         });
 
         const badge = document.createElement("span");
