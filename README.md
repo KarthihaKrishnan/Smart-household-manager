@@ -1,7 +1,7 @@
 # Smart Grocery Tracker
 A learning-driven full-stack project built step by step
 
-## Why I Built This Project**
+## Why I Built This Project
 I started this project to practice basic frontend development by creating a simple grocery list. As I used it more, I realised that a real shopping app needs more than just adding and removing items.
 This project became my way to learn full-stack development gradually, by solving real problems instead of following tutorials.
 
