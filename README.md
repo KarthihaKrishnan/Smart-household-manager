@@ -1,51 +1,67 @@
 # Smart Grocery Tracker
-A learning-driven full-stack project built step by step
+**Author:** Karthiha Krishnan
+**Role:** Aspiring Full-Stack Developer
+
+## Project Overview
+Smart Grocery Tracker is a learning-focused web application that started as a simple grocery list and is being evolved into a full-stack project.
+The goal of this project is not just to build features, but to understand how real-world applications grow — from frontend interactions to backend data persistence.
+This project represents my hands-on approach to learning full-stack development through practical problem-solving.
 
 ## Why I Built This Project
-I started this project to practice basic frontend development by creating a simple grocery list. As I used it more, I realised that a real shopping app needs more than just adding and removing items.
-This project became my way to learn full-stack development gradually, by solving real problems instead of following tutorials.
+I initially built this app to strengthen my frontend fundamentals using HTML, CSS, and JavaScript.
+While using the app, I realised that a real grocery or shopping app needs:
+- Persistent data
+- Clear separation of item states
+- A reliable source of truth
+- Support for real-world workflows (such as barcode scanning)
+Instead of stopping at a basic implementation, I decided to continue developing this single project as my full-stack learning journey.
 
-## What the App Does (Current)
+## Current Features
 - Create a grocery list
 - Add new items manually
 - Separate items into:
-- Pending items
-- Purchased items
+   * Pending items
+   * Purchased items
 - Mark items as purchased
 - Remove items from the list
+- Simple and clear user interface
+The current version focuses on clean UI behaviour and state management.
 
 ## How This Project Evolved
 Phase 1 – Frontend Foundation
-- Built the UI using HTML, CSS, and JavaScript
+- Built the interface using HTML and CSS
+- Implemented interactive behaviour with JavaScript
 - Learned DOM manipulation and event handling
-- Managed item state (pending vs purchased)
-- Improved layout and usability through iteration
+- Managed UI state changes between pending and purchased items
+- Iteratively improved layout and usability
+This phase helped me understand how user actions drive application state.
 
 ## Current Limitations
 At the moment:
 - Data is stored only in the browser
 - Refreshing the page clears the list
 - Items are available only on one device
+These limitations are intentional and have helped me clearly understand why backend systems are required in real applications.
 
-## Planned Enhancements (Learning Roadmap)
-Planned learning steps include:
-Backend Integration
+## Planned Enhancements (Full-Stack Roadmap)
+This project will continue to evolve with the following learning goals:
+Backend Integration (planned)
 - Persist grocery items using a backend service
 - Create APIs to:
     * Add items
     * Update item status
     * Fetch saved lists
-Database Design
+Database Design (planned)
 - Store grocery items with:
     * Name
     * Status (pending / purchased)
     * Timestamps
-    * Learn real-world data modelling
-Barcode Scanning
+- Learn real-world data modelling
+Barcode Scanning (planned)
 - Use the device camera to scan product barcodes
 - Automatically mark scanned items as purchased
 - Handle unknown or missing product data gracefully
-Product Improvements
+Product Improvements (planned)
 - Shopping history
 - Re-adding frequently purchased items
 - Improved mobile usability
@@ -64,15 +80,25 @@ Instead of building many small demo projects, I chose to:
 - Build one meaningful app
 - Improve it step by step
 - Learn each layer only when it becomes necessary
+This approach reflects how real software products are developed in professional environments.
 
 ## Future Vision
 The long-term vision is to turn this into a personal shopping assistant that:
 - Works across devices
 - Reduces manual tracking
-- Makes grocery shopping simpler and faster
+- Uses barcode scanning for faster shopping
+- Demonstrates a complete full-stack workflow
 
-## About the Developer
+## About Me
 I am an aspiring full-stack developer focused on hands-on learning.
 I enjoy building practical applications and improving them through iteration and feedback.
-
 This project represents my learning journey and problem-solving approach.
+
+## Technologies Used
+Current:
+- HTML
+- CSS
+- JavaScript
+Planned:
+- Backend development (to be introduced)
+- Database integration
