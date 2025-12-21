@@ -64,10 +64,12 @@ h1 {
     transition: background-color 2s ease;
 }
 
+/*
+
 #scanner {
     position: relative;
-    z-index: 5;        /* bring video above black background */
-    opacity: 1;        /* ensure visible */
+    z-index: 5;        /* bring video above black background 
+    opacity: 1;         ensure visible 
     background: transparent;
 }
 
@@ -79,7 +81,7 @@ h1 {
     margin: 10px auto;
     border-radius: 10px;
     overflow: hidden;
-    background: transparent; /* remove black background */
+    background: transparent; /* remove black background 
 }
 
 
@@ -91,7 +93,7 @@ h1 {
     height: 35%;
     border: 5px solid red;
     transform: translate(-50%, -50%);
-    z-index: 10; /* overlay on top of video */
+    z-index: 10; /* overlay on top of video 
     border-radius: 10px;
 }
 
@@ -113,6 +115,8 @@ video {
     max-height: 300px;
     object-fit: cover;
     background: black;
-    transform: scaleX(-1); /* fixes sometimes flipped preview */
+    transform: scaleX(-1); /* fixes sometimes flipped preview 
 }
+
+*/
 

@@ -7,6 +7,8 @@ Smart Grocery Tracker is a learning-focused web application that started as a si
 The goal of this project is not just to build features, but to understand how real-world applications grow — from frontend interactions to backend data persistence.
 This project represents my hands-on approach to learning full-stack development through practical problem-solving.
 
+## Current Version: v1.2 - Persistent frontend application
+
 ## Why I Built This Project
 I initially built this app to strengthen my frontend fundamentals using HTML, CSS, and JavaScript.
 While using the app, I realised that a real grocery or shopping app needs:
@@ -14,6 +16,7 @@ While using the app, I realised that a real grocery or shopping app needs:
 - Clear separation of item states
 - A reliable source of truth
 - Support for real-world workflows (such as barcode scanning)
+
 Instead of stopping at a basic implementation, I decided to continue developing this single project as my full-stack learning journey.
 
 ## Current Features
@@ -25,6 +28,8 @@ Instead of stopping at a basic implementation, I decided to continue developing 
 - Mark items as purchased
 - Remove items from the list
 - Simple and clear user interface
+- Persistent storage using browser localstorage (items remain after refresh).
+
 The current version focuses on clean UI behaviour and state management.
 
 ## How This Project Evolved
@@ -34,13 +39,23 @@ Phase 1 – Frontend Foundation
 - Learned DOM manipulation and event handling
 - Managed UI state changes between pending and purchased items
 - Iteratively improved layout and usability
+
 This phase helped me understand how user actions drive application state.
+
+Phase 2 - Data Persistence
+- Introduced a data-driven render architecture 
+- Implemented browser-based persistence using localstorage
+- Ensured grocery items survive page refresh and browser restart.
+- Designed the app with a single source of truth for easier backend migration
+
+This shows growth, not just features.
 
 ## Current Limitations
 At the moment:
 - Data is stored only in the browser
 - Refreshing the page clears the list
 - Items are available only on one device
+
 These limitations are intentional and have helped me clearly understand why backend systems are required in real applications.
 
 ## Planned Enhancements (Full-Stack Roadmap)
@@ -80,6 +95,7 @@ Instead of building many small demo projects, I chose to:
 - Build one meaningful app
 - Improve it step by step
 - Learn each layer only when it becomes necessary
+
 This approach reflects how real software products are developed in professional environments.
 
 ## Future Vision
@@ -99,6 +115,7 @@ Current:
 - HTML
 - CSS
 - JavaScript
+- Browser Localstorage
 Planned:
 - Backend development (to be introduced)
 - Database integration

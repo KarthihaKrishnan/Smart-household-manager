@@ -1,103 +1,134 @@
+//Load the saved Items
+const STORAGE_KEY = "smart_grocery_items";
+
+// This will hold all items from memory
 let items = [];
+
 let pendingIndex = null;
 
 const addButton = document.getElementById("addItem");
 const inputBox = document.getElementById("itemInput");
 const listBox = document.getElementById("itemList");
-const scanner = document.getElementById("scanner");
+const purchasedList = document.getElementById("purchasedList");
 
-//Load the saved Items
-const saved = localStorage.getItem("groceryItems");
-if (saved) {
-    items = JSON.parse(saved);
-    updateUI();
+// const scanner = document.getElementById("scanner");
+
+// Helpers
+function loadItems() {
+    try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : [];
+    }catch {
+        return [];
+    } 
 }
 
+// Save items
+function saveItems(items = []) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+}
+
+// On page load — read storage & assign to same array
+items = loadItems();
+render(items);
+
+//Add new item
 addButton.addEventListener("click", () => {
     const value = inputBox.value.trim();
     if (value === "") return;
+
     items.push({
+        id: crypto.randomUUID(),
         name: value,
-        purchased: false,
-        barcode: null
+        status: "pending",
+        //barcode: null
+        createdAt: Date.now()       
     });
+
+    saveItems(items);
+    render(items);
     inputBox.value = "";
-    updateUI();
 });
 
-function updateUI() {
-    const purchasedList = document.getElementById("purchasedList");
+// Render function
+function render() {
     listBox.innerHTML = "";
     purchasedList.innerHTML = "";
-    items.forEach((item, index) => {
+
+    items.forEach((item) => {
         const li = document.createElement("li");
+
         //Create Checkbox
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        checkbox.checked = item.purchased;
+        checkbox.checked = item.status === "purchased";
         
         // Checkbox change
         checkbox.addEventListener("change", () => {
-            item.purchased = checkbox.checked;
-            updateUI();           
+            item.status = checkbox.checked ? "purchased" : "pending";
+            saveItems(items);
+            render();           
         });
 
         // create text span
         const span = document.createElement("span");
         span.textContent = item.name;
+        // apply strike through if purchased
+        if (item.status === "purchased") {
+                span.classList.add("purchased");
+        }
 
         //create scan button
-        const scan = document.createElement("button");
-        scan.textContent = "📷";
-        scan.type = "button";
-        scan.addEventListener("click", () => {
-            pendingIndex = index;
-            showCamera();
-            startCamera();
-            startScanner();
+        //const scan = document.createElement("button");
+        //scan.textContent = "📷";
+        //scan.type = "button";
+        //scan.addEventListener("click", () => {
+           // pendingIndex = index;
+           // showCamera();
+           // startCamera();
+           // startScanner();
             // Pre-unlock audio with a manual tap
-            const unlock = new Audio("beep.mp3");
-            unlock.play().catch(() => {});
-        });
-
+           // const unlock = new Audio("beep.mp3");
+          //  unlock.play().catch(() => {});
+       // });
+/*
         const badge = document.createElement("span");
         if (item.barcode) {
             badge.textContent = "📌 linked";
         }else{
             badge.textContent = "";
-        }
+        } */
 
+        // Delete items
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "❌";
         deleteBtn.type = "button";
-        deleteBtn.addEventListener("click", () => {
-            items.splice(index, 1);
-            updateUI();
-        });
 
-        // apply strike through if purchased
-        if (item.purchased) {
-                span.classList.add("purchased");
-        }else {
-            span.classList.remove("purchased")
-        }
+        deleteBtn.addEventListener("click", () => {
+            items = items.filter(i => i.id !== item.id);
+            saveItems(items);
+            render();
+        }); 
 
         // add checkbox + text to li
         li.appendChild(checkbox);
         li.appendChild(span);
-        li.appendChild(scan);
-        li.appendChild(badge);
+      //  li.appendChild(scan);
+      //  li.appendChild(badge);
         li.appendChild(deleteBtn);
 
         // add li to the main list
-        if (item.purchased) {
+        if (item.status === "purchased") {
             purchasedList.appendChild(li);
         }else{
             listBox.appendChild(li);
         }
     });
-    localStorage.setItem("groceryItems", JSON.stringify(items));
 }
+
+render();
+
+/*
 
 async function startCamera() {
     try {
@@ -187,7 +218,7 @@ function hideCamera() {
         scanner.srcObject.getTracks().forEach(track => track.stop());
         scanner.srcObject = null;
     }
-}
+} */
 
 
 
