@@ -7,6 +7,9 @@ Smart Grocery Tracker is a learning-focused web application that started as a si
 The goal of this project is not just to build features, but to understand how real-world applications grow — from frontend interactions to backend data persistence.
 This project represents my hands-on approach to learning full-stack development through practical problem-solving.
 
+## Live demo
+🔗 **View Website:** https://karthihakrishnan.github.io/Smart-Grocery-Tracker/
+
 ## Current Version: v1.2 - Persistent frontend application
 
 ## Why I Built This Project
