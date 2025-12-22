@@ -2,6 +2,8 @@
 **Author:** Karthiha Krishnan
 **Role:** Aspiring Full-Stack Developer
 
+![Smart Grocery Tracker UI](screenshots/ui-v1.4.png)
+
 ## Project Overview
 Smart Grocery Tracker is a learning-focused web application that started as a simple grocery list and is being evolved into a full-stack project.
 The goal of this project is not just to build features, but to understand how real-world applications grow — from frontend interactions to backend data persistence.
@@ -10,7 +12,7 @@ This project represents my hands-on approach to learning full-stack development 
 ## Live demo
 🔗 **View Website:** https://karthihakrishnan.github.io/Smart-Grocery-Tracker/
 
-## Current Version: Version 1.4 — Polished, Readable, Portfolio-Ready UI
+## Current Version: Version 1.4 — Polished frontend with persistent storage
 
 ## Why I Built This Project
 I initially built this app to strengthen my frontend fundamentals using HTML, CSS, and JavaScript.
@@ -52,6 +54,17 @@ Phase 2 - Data Persistence
 - Designed the app with a single source of truth for easier backend migration
 
 This shows growth, not just features.
+
+Phase 3 - UI Polish & Usability
+- Improved readability through spacing and typography
+- Introduced a centered card layout
+- Enhanced visual distinction between pending and purchased items
+- Focused on clarity over decoration
+
+## User Interface (v1.4)
+The UI is designed to be clean, readable, and distraction-free.
+A centered card layout is used to keep focus on the task, with clear visual separation between pending and purchased items.
+Spacing, typography, and color contrast were intentionally kept minimal to improve usability and scanning.
 
 ## Current Limitations
 At the moment:
