@@ -1,62 +1,91 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-    background-color: lightgray;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 10px;
-    padding: 0;
+    background-color: #f4f6f8;
+    font-family: system-ui, -apple-system, sans-serif;    margin: 10px;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 480px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 h1 {
     text-align: center;
     color: darkgray;
-    margin: 10px;
-    padding: 10px;
+    margin-bottom: 20px;
 }
 
-#itemInput {
-    width: 250px;
-    padding: 10px;
-    border: 1px solid gray;
-    border-radius: 6px;
-    font-size: 15px;
-    margin-top: 5px;
+h2 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #555;
 }
 
-#addItem {
-    padding: 10px;
-    background-color: blue;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    cursor: pointer;
-    margin-left: 5px;
+.inputSection {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-#addItem:hover {
-    background-color: blueviolet;
+.inputSection #itemInput {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.inputSection #addItem {
+  padding: 10px 16px;
+  font-size: 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.inputSection #addItem:hover {
+  background-color: #2563eb;
 }
 
 #itemList {
     list-style: none;
     padding: 0;
-    margin-top: 10px;
+    margin: 0;
 }
 
 #itemList li {
     display: flex;
     align-items: center;
     gap: 10px;
-    background-color: white;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 6px;
-    border-left: 4px solid gray;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+li button {
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .purchased {
     text-decoration: line-through;
-    color: gray;
-    opacity: 0.8;
+    color: #999;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .highlight {
@@ -64,59 +93,15 @@ h1 {
     transition: background-color 2s ease;
 }
 
-/*
-
-#scanner {
-    position: relative;
-    z-index: 5;        /* bring video above black background 
-    opacity: 1;         ensure visible 
-    background: transparent;
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.camera-container {
-    display: none;
-    position: relative;
-    width: 100%;
-    max-width: 350px;
-    margin: 10px auto;
-    border-radius: 10px;
-    overflow: hidden;
-    background: transparent; /* remove black background 
+section {
+    margin-bottom: 20px;
+    background-color: white;
 }
 
-
-.scan-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 65%;
-    height: 35%;
-    border: 5px solid red;
-    transform: translate(-50%, -50%);
-    z-index: 10; /* overlay on top of video 
-    border-radius: 10px;
-}
-
-
-#scanner {
-    display: none;
-}
-.scan-box {
-    display: none;
-}
-
-.camera-container {
-    display: none;
-}
-
-video {
-    width: 100% !important;
-    height: auto !important;
-    max-height: 300px;
-    object-fit: cover;
-    background: black;
-    transform: scaleX(-1); /* fixes sometimes flipped preview 
-}
-
-*/
 

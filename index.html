@@ -7,25 +7,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Grocery List</h1>
+    <div class="container">
+        <h1>Grocery List</h1>
 
-    <input id="itemInput" type="text" placeholder="Add item...">
-    <button id="addItem">Add</button>
+        <section class="inputSection">
+            <input id="itemInput" type="text" placeholder="Add item...">
+            <button id="addItem">Add</button>
+        </section>
 
-    <!-- 
-    <div class="camera-container">
-        <div class="scan-box"></div>
-        <video id="scanner" autoplay playsinline></video>
+        <section class="pendingSection">
+            <h2>To Buy</h2>
+            <ul id="itemList"></ul>
+        </section>
+
+        <section class="purchasedSection">
+            <h2>Purchased</h2>
+            <ul id="purchasedList"></ul>
+        </section>
     </div>
-
-    -->
-
-    <h2>Pending Items</h2>
-    <ul id="itemList"></ul>
-
-    <h2>Purchased Items</h2>
-    <ul id="purchasedList"></ul>
-    
     <script src="app.js"></script>
 </body>
 </html>

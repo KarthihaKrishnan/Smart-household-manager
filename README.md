@@ -10,7 +10,7 @@ This project represents my hands-on approach to learning full-stack development 
 ## Live demo
 🔗 **View Website:** https://karthihakrishnan.github.io/Smart-Grocery-Tracker/
 
-## Current Version: v1.2 - Persistent frontend application
+## Current Version: Version 1.4 — Polished, Readable, Portfolio-Ready UI
 
 ## Why I Built This Project
 I initially built this app to strengthen my frontend fundamentals using HTML, CSS, and JavaScript.
