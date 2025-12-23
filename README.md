@@ -4,6 +4,26 @@
 
 ![Smart Grocery Tracker UI](screenshots/ui-v1.4.png)
 
+## Professional Layout
+smart-household-manager/
+│
+├── client/                 # Frontend
+│   ├── index.html
+│   ├── style.css
+│   ├── script.js
+│   └── assets/
+│
+├── server/                 # Backend (future)
+│   ├── routes/
+│   ├── controllers/
+│   ├── models/
+│   └── db/
+│
+├── docs/                   # Screenshots & diagrams
+│
+├── README.md
+└── .gitignore
+
 ## Project Overview
 Smart Grocery Tracker is a learning-focused web application that started as a simple grocery list and is being evolved into a full-stack project.
 The goal of this project is not just to build features, but to understand how real-world applications grow — from frontend interactions to backend data persistence.
