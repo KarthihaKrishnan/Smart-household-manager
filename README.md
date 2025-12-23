@@ -160,6 +160,21 @@ To support data persistence, multi-device access, and future scalability, this p
 
 ---
 
+### REST API Endpoints (Planned)
+- GET /api/grocery_items
+Fetch all grocery items (supports filtering by status)
+
+- POST /api/grocery_items
+Add a new grocery item
+
+- PATCH /api/grocery_items/:id
+Update grocery item status (pending/purchased)
+
+- DELETE /api/grocery_items/:id
+Remove a grocery item
+
+---
+
 ## 🧭 Project Structure
 ```txt
 smart-household-manager/
