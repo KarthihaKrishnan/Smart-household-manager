@@ -132,6 +132,32 @@ The long-term goal is to turn this into a personal shopping assistant that:
 - PostgreSQL 
 - REST APIs
 
+## 🧩 Planned Backend Design
+To support data persistence, multi-device access, and future scalability, this project is designed with a backend-first data model.
+
+### Database Schema (Planned – PostgreSQL)
+**users**
+- id (UUID, primary key)
+- name
+- email (unique)
+- created_at
+- updated_at
+
+**grocery_items**
+- id (UUID, primary key)
+- user_id (foriegn key -> users.id)
+- item_name
+- status (pending/purchased)
+- created_at
+- updated_at
+
+### Design consideration
+- Each grocery item belongs to a specific user
+- Item state is explicitly stored using a status field
+- UUIDs are used for safer frontend-backend communication
+- Timestamps support auditing, sorting, and sync logic
+- Schema is designed to support future features such as authontication, multi-device sync, and shared lists.
+
 ---
 
 ## 🧭 Project Structure
