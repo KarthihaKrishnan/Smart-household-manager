@@ -2,7 +2,7 @@
 **Author:** Karthiha Krishnan
 **Role:** Aspiring Full-Stack Developer
 
-![Smart Grocery Tracker UI](screenshots/ui-v1.4.png)
+![Smart Grocery Tracker UI](docs/ui-v1.4.png)
 
 ## Professional Layout
 smart-household-manager/
