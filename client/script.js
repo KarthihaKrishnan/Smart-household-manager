@@ -2,34 +2,42 @@
 const STORAGE_KEY = "smart_grocery_items";
 
 // This will hold all items from memory
-let items = [];
+//let items = [];
 
-const addButton = document.getElementById("addItem");
-const inputBox = document.getElementById("itemInput");
-const listBox = document.getElementById("itemList");
+//const addButton = document.getElementById("addItem");
+//const inputBox = document.getElementById("itemInput");
+const pendingList = document.getElementById("itemList");
 const purchasedList = document.getElementById("purchasedList");
 
 // Load from localStorage (Helpers)
-function loadItems() {
+/* function loadItems() {
     try {
         const data = localStorage.getItem(STORAGE_KEY);
         return data ? JSON.parse(data) : [];
     }catch {
         return [];
     } 
+} */
+
+function getItems() {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 }
 
 // Save to localStorage
-function saveItems(items = []) {
+/* function saveItems(items = []) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+} */
+
+function saveItems(items) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
 }
 
 // On page load — read storage & assign to same array
-items = loadItems();
+items = getItems();
 render();
 
 //Add new item
-addButton.addEventListener("click", () => {
+/* addButton.addEventListener("click", () => {
     const value = inputBox.value.trim();
     if (value === "") return;
 
@@ -43,10 +51,10 @@ addButton.addEventListener("click", () => {
     saveItems(items);
     render();
     inputBox.value = "";
-});
+}); */
 
 // Render function
-function render() {
+/* function render() {
     listBox.innerHTML = "";
     purchasedList.innerHTML = "";
 
@@ -95,6 +103,34 @@ function render() {
             listBox.appendChild(li);
         }
     });
+} */
+function renderItems () {
+    const items = getItems();
+
+    //clear UI
+    pendingList.innerHTML = "";
+    purchasedList.innerHTML = "";
+
+    items.forEach(item => {
+        if (item.status === "pending") {
+            renserPendingItem(item);
+        }else {
+            renderPurchasedItem(item);
+        }        
+    });
+}
+
+function addItem (name) {
+    const items = getItems();
+
+    items.push({
+        id: crypto.randomUUID(),
+        item_name: name,
+        status: "pending"
+    });
+
+    saveItems(items);
+    renderItems();
 }
 
 
