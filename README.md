@@ -35,11 +35,13 @@ Instead of stopping at a basic demo, I chose to evolve this single project into 
 ---
 
 ## 🛒 Current Features (Grocery Tracker)
-- Add and remove grocery items
+- Add grocery items
+- Fetch grocery items from backend API
 - Separate **pending** and **purchased** items
 - Mark items as purchased
 - Clean, minimal UI
-- Persistent storage using browser **LocalStorage**
+- Backend-powered grocery data (Express API)
+- Frontend persistence currently uses browser **LocalStorage**
 
 ---
 
@@ -83,11 +85,13 @@ These limitations are intentional and help demonstrate why backend systems are r
 ---
 
 ## 🛠️ Roadmap
-- Backend API integration
-- PostgreSQL database
-- Barcode scanning support
-- Shopping history & re-add items
-- Improved mobile & accessibility support
+- ✅ Express backend setup
+- ✅ Grocery APIs (GET, POST)
+- ⏳ Update & delete grocery items (PATCH, DELETE)
+- ⏳ PostgreSQL database integration
+- ⏳ Barcode scanning support
+- ⏳ Shopping history & re-add items
+- ⏳ Improved mobile & accessibility support
 
 ---
 
@@ -145,30 +149,33 @@ To support data persistence, multi-device access, and future scalability, this p
 
 **grocery_items**
 - id (UUID, primary key)
-- user_id (foriegn key -> users.id)
+- user_id (foreign key -> users.id)
 - item_name
 - status (pending/purchased)
 - created_at
 - updated_at
 
-### Design consideration
+### Design considerations
 - Each grocery item belongs to a specific user
 - Item state is explicitly stored using a status field
 - UUIDs are used for safer frontend-backend communication
 - Timestamps support auditing, sorting, and sync logic
-- Schema is designed to support future features such as authontication, multi-device sync, and shared lists.
+- Schema is designed to support future features such as authentication, multi-device sync, and shared lists.
 
 ---
 
-### REST API Endpoints (Planned)
+### REST API Endpoints
+
+**Implemented**
 - GET /api/grocery_items
-Fetch all grocery items (supports filtering by status)
+Fetch all grocery items 
 
 - POST /api/grocery_items
 Add a new grocery item
 
+**Planned**
 - PATCH /api/grocery_items/:id
-Update grocery item status (pending/purchased)
+Update grocery item status (pending / purchased)
 
 - DELETE /api/grocery_items/:id
 Remove a grocery item
@@ -179,7 +186,7 @@ Remove a grocery item
 ```txt
 smart-household-manager/
 ├── client/    # Frontend
-├── server/    # Backend (planned)
+├── server/    # Backend (Express API in progress)
 ├── docs/      # Screenshots & diagrams
 └── README.md
 
