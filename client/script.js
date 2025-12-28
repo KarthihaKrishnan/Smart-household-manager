@@ -1,13 +1,23 @@
+//import { response } from "express";
+
 // LocalStorage key
 const STORAGE_KEY = "smart_grocery_items";
 
 // This will hold all items from memory
-//let items = [];
+let items = [];
 
-//const addButton = document.getElementById("addItem");
-//const inputBox = document.getElementById("itemInput");
+const addButton = document.getElementById("addItem");
+const inputBox = document.getElementById("itemInput");
 const pendingList = document.getElementById("itemList");
 const purchasedList = document.getElementById("purchasedList");
+
+addButton.addEventListener("click", () => {
+    const value = inputBox.value.trim();
+    if (!value) return;
+
+    addItem(value);
+    inputBox.value = "";
+}); 
 
 // Load from localStorage (Helpers)
 /* function loadItems() {
@@ -32,31 +42,47 @@ function saveItems(items) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
 }
 
+async function loadItemsFromBackend() {
+    try {
+        const response = await fetch("http://localhost:3001/api/grocery-items");
+        items = await response.json();
+        renderItems();
+    }catch (error) {
+        console.error("Failed to load items from backend", error);
+    }
+}
+
 // On page load — read storage & assign to same array
-items = getItems();
-render();
+loadItemsFromBackend();
 
 //Add new item
-/* addButton.addEventListener("click", () => {
-    const value = inputBox.value.trim();
-    if (value === "") return;
+async function addItem(name) {
+    if (!name) return;
 
-    items.push({
-        id: crypto.randomUUID(),
-        name: value,
-        status: "pending",
-        createdAt: Date.now()       
-    });
+    try {
+        const response = await fetch("http://localhost:3001/api/grocery-items", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ item_name: name})
+        });
+        const newItem = await response.json();
 
-    saveItems(items);
-    render();
-    inputBox.value = "";
-}); */
+        // add backend-created item to memory
+        items.push(newItem);
+
+        renderItems();
+    }catch (error) {
+        console.error("Failed to add item", error);
+    }
+}
+
+
 
 // Render function
 /* function render() {
-    listBox.innerHTML = "";
-    purchasedList.innerHTML = "";
+
 
     items.forEach((item) => {
         const li = document.createElement("li");
@@ -105,8 +131,6 @@ render();
     });
 } */
 function renderItems () {
-    const items = getItems();
-
     //clear UI
     pendingList.innerHTML = "";
     purchasedList.innerHTML = "";
@@ -120,18 +144,7 @@ function renderItems () {
     });
 }
 
-function addItem (name) {
-    const items = getItems();
 
-    items.push({
-        id: crypto.randomUUID(),
-        item_name: name,
-        status: "pending"
-    });
-
-    saveItems(items);
-    renderItems();
-}
 
 
 
