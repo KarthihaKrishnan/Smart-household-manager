@@ -1,5 +1,5 @@
 import express from "express";
-import { postGroceryItems, getGroceryItems } from '../controllers/grocery.controller.js';
+import { postGroceryItems, getGroceryItems, deleteGroceryItems, updateGroceryItem } from '../controllers/grocery.controller.js';
 
 const router = express.Router();
 
@@ -8,5 +8,11 @@ router.post('/grocery-items', postGroceryItems);
 
 // GET route to fetch all grocery items
 router.get('/grocery-items', getGroceryItems);
+
+// PUT route to update the Item status
+router.put('/grocery-items/:id', updateGroceryItem);
+
+// DELETE route to delete the item from all grocery items
+router.delete('/grocery-items/:id', deleteGroceryItems);
 
 export default router; 
