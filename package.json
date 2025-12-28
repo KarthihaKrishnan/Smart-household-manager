@@ -1,6 +1,7 @@
 {
   "name": "smart-household-manager",
   "version": "1.0.0",
+  "type": "module",
   "description": "A modular full-stack web application to manage groceries and household activities efficiently.",
   "main": "index.js",
   "directories": {
@@ -22,6 +23,5 @@
   "homepage": "https://github.com/KarthihaKrishnan/smart-household-manager#readme",
   "dependencies": {
     "express": "^5.2.1"
-  },
-  "type": "module"
+  }
 }
