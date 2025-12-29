@@ -10,7 +10,7 @@ router.post('/grocery-items', postGroceryItems);
 router.get('/grocery-items', getGroceryItems);
 
 // PUT route to update the Item status
-router.put('/grocery-items/:id', updateGroceryItem);
+router.patch('/grocery-items/:id', updateGroceryItem);
 
 // DELETE route to delete the item from all grocery items
 router.delete('/grocery-items/:id', deleteGroceryItems);

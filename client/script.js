@@ -1,5 +1,3 @@
-//import { response } from "express";
-
 // LocalStorage key
 const STORAGE_KEY = "smart_grocery_items";
 
@@ -19,29 +17,7 @@ addButton.addEventListener("click", () => {
     inputBox.value = "";
 }); 
 
-// Load from localStorage (Helpers)
-/* function loadItems() {
-    try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
-    }catch {
-        return [];
-    } 
-} */
-
-function getItems() {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-}
-
-// Save to localStorage
-/* function saveItems(items = []) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-} */
-
-function saveItems(items) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-}
-
+   
 async function loadItemsFromBackend() {
     try {
         const response = await fetch("http://localhost:3001/api/grocery-items");
@@ -78,58 +54,118 @@ async function addItem(name) {
     }
 }
 
+// Delete items
+async function deleteItem(id) {
+    try {
+        await fetch(`http://localhost:3001/api/grocery-items/${id}`, {
+            method: "DELETE"
+        });
+        items = items.filter(item => item.id !== id);
 
+        renderItems();
+    }catch (error) {
+        console.error("Failed to add item", error);
+    }
+}
+        
 
 // Render function
-/* function render() {
+function renderPendingItem(item) {
+    const li = document.createElement("li");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = false;
 
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "❌";
+    deleteBtn.type = "button";
 
-    items.forEach((item) => {
-        const li = document.createElement("li");
+    deleteBtn.addEventListener("click", () => {
+        console.log("DELETE clicked for id: ", item.id);
+        deleteItem(item.id);
+    }); 
 
-        //Create Checkbox
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = item.status === "purchased";
-        
-        // Checkbox change
-        checkbox.addEventListener("change", () => {
-            item.status = checkbox.checked ? "purchased" : "pending";
-            saveItems(items);
-            render();           
-        });
+    checkbox.addEventListener("change", async() => {
+        try {
+            const response = await fetch(
+                `http://localhost:3001/api/grocery-items/${item.id}`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ status: "purchased" })
+                }
+            );
+            const updatedItem = await response.json();
 
-        // Update item status
-        const span = document.createElement("span");
-        span.textContent = item.name;
-        // apply strike through if purchased
-        if (item.status === "purchased") {
-            span.classList.add("purchased");
-        }
-
-        // Delete items
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "❌";
-        deleteBtn.type = "button";
-
-        deleteBtn.addEventListener("click", () => {
-            items = items.filter(i => i.id !== item.id);
-            saveItems(items);
-            render();
-        }); 
-        
-        li.appendChild(checkbox);
-        li.appendChild(span);
-        li.appendChild(deleteBtn);
-
-        // add li to the main list
-        if (item.status === "purchased") {
-            purchasedList.appendChild(li);
-        }else{
-            listBox.appendChild(li);
+            const index = items.findIndex(i => i.id === updatedItem.id);
+            items[index] = updatedItem;
+            renderItems();
+        }catch (error) {
+            console.error("Failed to update item", error);
         }
     });
-} */
+    
+    const span = document.createElement("span");
+    span.textContent = item.item_name;
+
+    li.appendChild(checkbox);
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
+
+    pendingList.appendChild(li);
+}
+
+function renderPurchasedItem(item) {
+    const li = document.createElement("li");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = true;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "❌";
+    deleteBtn.type = "button";
+
+    deleteBtn.addEventListener("click", () => {
+        console.log("DELETE clicked for id: ", item.id);
+        deleteItem(item.id);
+    }); 
+
+    checkbox.addEventListener("change", async() => {
+        try {
+            const response = await fetch(
+                `http://localhost:3001/api/grocery-items/${item.id}`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ status: "pending"})
+                }
+            );
+            const updatedItem = await response.json();
+
+            const index = items.findIndex(i => i.id === updatedItem.id);
+            items[index] = updatedItem;
+
+            renderItems();
+        }catch(error) {
+            console.error("Failed to update item", error);
+        }
+    });
+
+    const span = document.createElement("span");
+    span.textContent = item.item_name;
+    span.classList.add("purchased");
+
+    li.appendChild(checkbox);
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
+
+    purchasedList.appendChild(li);
+}
+       
 function renderItems () {
     //clear UI
     pendingList.innerHTML = "";
@@ -137,7 +173,7 @@ function renderItems () {
 
     items.forEach(item => {
         if (item.status === "pending") {
-            renserPendingItem(item);
+            renderPendingItem(item);
         }else {
             renderPurchasedItem(item);
         }        

@@ -4,17 +4,20 @@ let idCounter = 1;
 
 // POST function to add a grocery item
 export function postGroceryItems(req, res) {
-    const { item_name, status = "pending" } = req.body;
+    const { item_name } = req.body;
+    const status = "pending";
+
+    const newItem = {
+        id: groceryList.length+1,
+        item_name,
+        status: "pending",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+    };
 
     if ( item_name ) {
-        groceryList.push({ 
-            id: idCounter++,
-            item_name,
-            status,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-         });
-        res.status(201).json(groceryList);
+        groceryList.push(newItem);
+        res.status(201).json(newItem);
     }else {
         res.status(404).json({ message: "Item name is required!"});
     }
