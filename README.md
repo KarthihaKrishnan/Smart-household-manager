@@ -10,7 +10,7 @@ A modular full-stack web application to manage groceries and household activitie
 ---
 
 ## 🚀 Live Demo
-🔗 https://karthihakrishnan.github.io/Smart-Grocery-Tracker/
+🔗 [https://karthihakrishnan.github.io/Smart-Grocery-Tracker/](https://karthihakrishnan.github.io/Smart-household-manager/)
 
 ---
 
