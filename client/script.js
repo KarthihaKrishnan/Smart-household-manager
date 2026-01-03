@@ -1,3 +1,5 @@
+console.log("JS LOADED");
+
 // LocalStorage key
 const STORAGE_KEY = "smart_grocery_items";
 
@@ -6,7 +8,7 @@ let items = [];
 
 const addButton = document.getElementById("addItem");
 const inputBox = document.getElementById("itemInput");
-const pendingList = document.getElementById("itemList");
+const pendingList = document.getElementById("pendingList");
 const purchasedList = document.getElementById("purchasedList");
 
 addButton.addEventListener("click", () => {
@@ -16,6 +18,8 @@ addButton.addEventListener("click", () => {
     addItem(value);
     inputBox.value = "";
 }); 
+        console.log("addButton:", addButton);
+        console.log("inputBox:", inputBox);
 
    
 async function loadItemsFromBackend() {
@@ -72,13 +76,25 @@ async function deleteItem(id) {
 // Render function
 function renderPendingItem(item) {
     const li = document.createElement("li");
+    const left = document.createElement("div");
+    left.className = "item-left";
+
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = false;
+    left.appendChild(checkbox);
+
+    const text = document.createElement("span");
+    text.className = "item-text";
+    text.textContent = item.item_name;
+
+    const actions = document.createElement("div");
+    actions.className = "item-action";
 
     const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "❌";
+    deleteBtn.textContent = "🗑️";
     deleteBtn.type = "button";
+    actions.appendChild(deleteBtn);
 
     deleteBtn.addEventListener("click", () => {
         console.log("DELETE clicked for id: ", item.id);
@@ -107,25 +123,32 @@ function renderPendingItem(item) {
         }
     });
     
-    const span = document.createElement("span");
-    span.textContent = item.item_name;
-
-    li.appendChild(checkbox);
-    li.appendChild(span);
-    li.appendChild(deleteBtn);
-
+    left.appendChild(text);
+    li.append(left, actions);
     pendingList.appendChild(li);
 }
 
 function renderPurchasedItem(item) {
     const li = document.createElement("li");
+    const left = document.createElement("div");
+    left.className = "item-left";
+
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = true;
+    left.appendChild(checkbox);
+
+    const text = document.createElement("span");
+    text.className = "item-text purchased";
+    text.textContent = item.item_name;
+
+    const actions = document.createElement("div");
+    actions.className = "item-action";
 
     const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "❌";
+    deleteBtn.textContent = "🗑️";
     deleteBtn.type = "button";
+    actions.appendChild(deleteBtn);
 
     deleteBtn.addEventListener("click", () => {
         console.log("DELETE clicked for id: ", item.id);
@@ -155,18 +178,18 @@ function renderPurchasedItem(item) {
         }
     });
 
-    const span = document.createElement("span");
-    span.textContent = item.item_name;
-    span.classList.add("purchased");
-
-    li.appendChild(checkbox);
-    li.appendChild(span);
-    li.appendChild(deleteBtn);
+    left.appendChild(text);
+    li.append(left, actions);
 
     purchasedList.appendChild(li);
 }
        
 function renderItems () {
+    if (!pendingList || !purchasedList) {
+        console.error("List containers not found in HTML");
+        return;
+    }
+    
     //clear UI
     pendingList.innerHTML = "";
     purchasedList.innerHTML = "";

@@ -42,6 +42,7 @@ Instead of stopping at a basic demo, I chose to evolve this single project into 
 - Clean, minimal UI
 - Backend-powered grocery data (Express API)
 - Frontend persistence currently uses browser **LocalStorage**
+- Full CRUD operations with Express backend (GET, POST, PATCH, DELETE)
 
 ---
 
@@ -87,7 +88,7 @@ These limitations are intentional and help demonstrate why backend systems are r
 ## 🛠️ Roadmap
 - ✅ Express backend setup
 - ✅ Grocery APIs (GET, POST)
-- ⏳ Update & delete grocery items (PATCH, DELETE)
+- ✅ Update & delete grocery items (PATCH, DELETE)
 - ⏳ PostgreSQL database integration
 - ⏳ Barcode scanning support
 - ⏳ Shopping history & re-add items
@@ -173,7 +174,6 @@ Fetch all grocery items
 - POST /api/grocery_items
 Add a new grocery item
 
-**Planned**
 - PATCH /api/grocery_items/:id
 Update grocery item status (pending / purchased)
 

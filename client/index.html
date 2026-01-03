@@ -3,28 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Grocery Tracker</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Smart Household Manager</title>
+
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Grocery List</h1>
+    <!-- OUTER APP PANEL -->
+    <div class="app-wrapper">
+    
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="logo">
+          🏠
+        </div>
+        <h1>Smart Household Manager</h1>
+      </div>
 
-        <section class="inputSection">
-            <input id="itemInput" type="text" placeholder="Add item...">
-            <button id="addItem" type="button">Add</button>
-        </section>
+      <div class="header-right">
+        <div class="profile-avatar">
+          👤
+        </div>
+      </div>
+    </header>
 
-        <section class="pendingSection">
-            <h2>To Buy</h2>
-            <ul id="itemList"></ul>
-        </section>
+    <!-- MAIN CARD -->
+    <main class="grocery-card">
+        <h2>Grocery List</h2>
 
-        <section class="purchasedSection">
-            <h2>Purchased</h2>
-            <ul id="purchasedList"></ul>
-        </section>
-    </div>
+    <!-- INPUT ROW -->
+      <div class="input-row">
+        <input id="itemInput" type="text" placeholder="Add grocery item..." />
+        <button id="addItem">Add</button>
+      </div>
+
+      <div class="input-divider"></div>
+
+      <!-- TO BUY -->
+      <section>
+        <h3>To Buy</h3>
+        <ul id="pendingList" class="item-list"></ul>
+      </section>
+
+      <!-- PURCHASED -->
+      <section class="purchased-section">
+        <h3>Purchased</h3>
+        <ul id="purchasedList" class="item-list"></ul>
+      </section>
+
+    </main>
     <script type="module" src="./script.js"></script>
+  </div>
 </body>
 </html>

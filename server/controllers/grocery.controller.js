@@ -1,73 +1,102 @@
-let groceryList = [];
+import db from "../db/db.js";
 
 let idCounter = 1;
 
 // POST function to add a grocery item
-export function postGroceryItems(req, res) {
+export async function postGroceryItems(req, res) {
     const { item_name } = req.body;
-    const status = "pending";
 
-    const newItem = {
-        id: groceryList.length+1,
-        item_name,
-        status: "pending",
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-    };
+    if ( !item_name ) {
+        return res.status(404).json({ message: "Item name is required!"});
+    }
 
-    if ( item_name ) {
-        groceryList.push(newItem);
-        res.status(201).json(newItem);
-    }else {
-        res.status(404).json({ message: "Item name is required!"});
+    try {
+        const result = await db.query(
+            `
+            INSERT INTO grocery_items (item_name, status)
+            VALUES($1, $2)
+            RETURNING *
+            `, 
+            [item_name, "pending"]
+        );
+        res.status(201).json(result.rows[0]);
+    }catch (error) {
+        console.error("Error creating grocery item: ", error);
+        res.status(500).json({ message: "Failed to create grocery item" });
+    }
+}
+        
+// GET function to return all grocery items
+export async function getGroceryItems (req, res) {
+    try {
+        const result = await db.query(`SELECT * FROM grocery_items`);
+        res.status(200).json(result.rows);
+    }catch (error) {
+        console.error("Failed to load the items", error);
     }
 }
 
-
-// GET function to return all grocery items
-export function getGroceryItems(req, res) {
-    res.status(200).json(groceryList);
-}
-
 //PUT function to update the status of a grocery item
-export function updateGroceryItem(req, res) {
+export async function updateGroceryItem(req, res) {
     const { id } = req.params;
-    const { item_name, status } = req.body;
+    const { status } = req.body;
 
-    const index = groceryList.findIndex(item => item.id === parseInt(id));
+    if ( !id || !status ) {
+        return res.status(400).json({ message: `Item with ID ${id} not found!` });
+    }
 
-    if(index !== -1) {
-        const groceryItem = groceryList[index];
-        if (item_name) groceryItem.item_name = item_name;
-        if (status) groceryItem.status = status;
-        
-        groceryItem.updated_at = new Date().toISOString();
+    if ( !["pending", "purchased"].includes(status)) {
+        return res.status(400).json({ message: "Invalid status value" });
+    }
 
-        if (!groceryItem.created_at) {
-            groceryItem.created_at = new Date().toISOString();  // Set created_at if not present
+    try {
+        const result = await db.query(
+            `
+            UPDATE grocery_items
+            SET status = $1,
+                updated_at = NOW()
+            WHERE id = $2
+            RETURNING *
+            `,
+            [status, id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: "Item not found" });
         }
-        res.status(200).json({
-            id: groceryItem.id,
-            item_name: groceryItem.item_name,
-            status: groceryItem.status,
-            created_at: groceryItem.created_at,
-            updated_at: groceryItem.updated_at
-        });
-    } else {
-        res.status(404).json({ message: `Item with ID ${id} not found!` });
+
+        res.json(result.rows[0]);
+    }catch (error) {
+        console.error("Error updating grocery item: ", error);
+        res.status(500).json({ message: "Failed to update grocery item" });
     }
 }
 
 // DELETE function to remove an item by id
-export function deleteGroceryItems(req, res) {
+export async function deleteGroceryItems(req, res) {
     const { id } = req.params;
 
-    const index = groceryList.findIndex(item => item.id === parseInt(id));
-
-    if (index !== -1) {
-        groceryList.splice(index, 1);
-        res.status(204).end();
-    }else {
+    if (!id) {
         res.status(404).json({ message: `Item with ID ${id} not found!`});
     }
+
+    try {
+        const result = await db.query (
+            `
+            DELETE FROM grocery_items
+            WHERE id = $1
+            RETURNING *
+            `,
+            [id]
+        );
+        
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: "Item not found" });
+        }
+        res.json(result.rows[0]);
+    }catch (error) {
+        console.error("Error deleting grocery item: ", error);
+        res.status(500).json({ message: "Failed to delete grocery item" });
+    }
 }
+
