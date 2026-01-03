@@ -105,9 +105,9 @@ These limitations are intentional and help demonstrate why backend systems are r
 
 ## 🛠️ Roadmap
 - ✅ Express backend setup
-- ✅ Grocery APIs (GET, POST)
-- ✅ Update & delete grocery items (PATCH, DELETE)
-- ⏳ PostgreSQL database integration
+- ✅ Grocery APIs (GET, POST, PATCH, DELETE)
+- ✅ PostgreSQL database connection established
+- ⏳ Migrate all grocery logic from in-memory storage to PostgreSQL
 - ⏳ Barcode scanning support
 - ⏳ Shopping history & re-add items
 - ⏳ Improved mobile & accessibility support
