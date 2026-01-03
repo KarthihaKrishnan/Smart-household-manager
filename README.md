@@ -42,9 +42,27 @@ Instead of stopping at a basic demo, I chose to evolve this single project into 
 - Clean, minimal UI
 - Backend-powered grocery data (Express API)
 - Frontend persistence currently uses browser **LocalStorage**
-- Full CRUD operations with Express backend (GET, POST, PATCH, DELETE)
+- Full CRUD operations backed by PostgreSQL
+- Data persists across refresh and server restarts
+- Frontend communicates exclusively via REST API
 
 ---
+
+## 🧠 Backend Status (Milestone)
+
+The Smart Grocery Tracker is now fully backed by a PostgreSQL database.
+
+### Implemented
+- REST API using Node.js and Express
+- PostgreSQL database integration
+- Full CRUD operations:
+  - Create grocery items
+  - Fetch all items
+  - Update item status (pending / purchased)
+  - Delete items
+- API-driven frontend (no LocalStorage)
+
+This milestone completes the transition from a frontend-only prototype to a true full-stack application.
 
 ## 🧭 How This Project Evolved
 **Phase 1 — Frontend Foundation**
