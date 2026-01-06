@@ -6,11 +6,33 @@ let idCounter = 1;
 export async function postGroceryItems(req, res) {
     const { item_name } = req.body;
 
-    if ( !item_name ) {
-        return res.status(404).json({ message: "Item name is required!"});
+    if ( !item_name || typeof item_name !== "string" ) {
+        return res.status(400).json({ message: "Item name must be a string"});
+    }
+
+    const trimmedName = item_name.trim();
+
+    if  (trimmedName.length === 0) {
+        return res.status(400).json({ message: "Item name cannot empty" });
+    }
+
+    if (trimmedName.length > 100) {
+        return res.status(400).json({ message: "Item name is too long" });
     }
 
     try {
+        const duplicateCheck = await db.query(
+            `
+            SELECT id FROM grocery_items
+            WHERE LOWER(item_name) = LOWER($1)
+            `,
+            [trimmedName]
+        );
+
+        if (duplicateCheck.rows.length > 0) {
+            return res.status(409).json({ message: "Item already exists" });
+        }
+
         const result = await db.query(
             `
             INSERT INTO grocery_items (item_name, status)
@@ -20,6 +42,7 @@ export async function postGroceryItems(req, res) {
             [item_name, "pending"]
         );
         res.status(201).json(result.rows[0]);
+
     }catch (error) {
         console.error("Error creating grocery item: ", error);
         res.status(500).json({ message: "Failed to create grocery item" });
@@ -30,9 +53,10 @@ export async function postGroceryItems(req, res) {
 export async function getGroceryItems (req, res) {
     try {
         const result = await db.query(`SELECT * FROM grocery_items`);
-        res.status(200).json(result.rows);
+        res.status(201).json(result.rows);
     }catch (error) {
-        console.error("Failed to load the items", error);
+        console.error("Error loading the items: ", error);
+        res.status(500).json({ message: "Failed to load grocery item" });
     }
 }
 
@@ -41,12 +65,16 @@ export async function updateGroceryItem(req, res) {
     const { id } = req.params;
     const { status } = req.body;
 
-    if ( !id || !status ) {
-        return res.status(400).json({ message: `Item with ID ${id} not found!` });
+    if ( !id || id == "" ) {
+        return res.status(400).json({ message: `Item with ID ${id} is required` });
+    }
+
+    if ( !status || !status.includes(value)) {
+        return res.status(400).json({ message: "Status not valid" });
     }
 
     if ( !["pending", "purchased"].includes(status)) {
-        return res.status(400).json({ message: "Invalid status value" });
+        return res.status(404).json({ message: "Invalid status value" });
     }
 
     try {
