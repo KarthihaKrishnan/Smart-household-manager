@@ -15,7 +15,7 @@ A modular full-stack web application to manage groceries and household activitie
 ---
 
 ## 📌 Project Overview
-Smart Household Manager is a real-world, evolving full-stack project.
+Smart Household Manager is a real-world, this project is currently transitioning to a React-based household dashboard that brings multiple daily-life features into a single Home view.
 
 It begins as a **Smart Grocery Tracker** and will gradually expand into a complete household management system, including bills, chores, maintenance, and inventory tracking.
 
@@ -31,6 +31,15 @@ While building and using the app, I realised that real grocery applications requ
 - Support for real-world workflows (e.g., barcode scanning)
 
 Instead of stopping at a basic demo, I chose to evolve this single project into my full-stack learning journey.
+
+---
+
+## 🏡 Home Dashboard (In Progress)
+- React + Vite frontend
+- Component-based Home layout
+- Top navigation tabs (Home, Calendar, Tasks, Recipes, Meal Plan, Shopping List)
+- Family Header section (UI-only)
+- Focus on layout, spacing, and hierarchy
 
 ---
 
@@ -111,6 +120,10 @@ These limitations are intentional and help demonstrate why backend systems are r
 - ⏳ Barcode scanning support
 - ⏳ Shopping history & re-add items
 - ⏳ Improved mobile & accessibility support
+- ⏳ React Home dashboard layout
+- ⏳ Upcoming Events card UI
+- ⏳ Tasks & Shopping overview cards
+- ⏳ Connect Home UI with backend data
 
 ---
 
@@ -145,12 +158,14 @@ The long-term goal is to turn this into a personal shopping assistant that:
 
 ## 🧑‍💻 Technologies Used
 **Current**
-- HTML
-- CSS
-- JavaScript
-- Browser LocalStorage
+- Add React (Vite) under Current
 
 **Planned**
+
+**Frontend**
+- React (Vite)
+- HTML, CSS, JavaScript
+**Backend**
 - Node.js + Express 
 - PostgreSQL 
 - REST APIs
@@ -206,6 +221,7 @@ smart-household-manager/
 ├── client/    # Frontend
 ├── server/    # Backend (Express API in progress)
 ├── docs/      # Screenshots & diagrams
+├── web/       # React Frontend
 └── README.md
 
 
