@@ -1,5 +1,5 @@
 # 🏠 Smart Household Manager
-A modular full-stack web application to manage groceries and household activities efficiently.
+A modular full-stack web application evolving from a grocery tracker into a smart household manager.
 
 **Author:** Karthiha Krishnan  
 **Role:** Aspiring Full-Stack Developer  
@@ -15,90 +15,90 @@ A modular full-stack web application to manage groceries and household activitie
 ---
 
 ## 📌 Project Overview
-Smart Household Manager is a real-world, this project is currently transitioning to a React-based household dashboard that brings multiple daily-life features into a single Home view.
+Smart Household Manager is a real-world, learning-driven full-stack web application.
+It began as a **Smart Grocery Tracker** and is currently evolving into a React-based household dashboard that brings multiple daily-life features into a single Home view.
 
-It begins as a **Smart Grocery Tracker** and will gradually expand into a complete household management system, including bills, chores, maintenance, and inventory tracking.
+Planned expansions include household tasks, bills, maintenance reminders, and inventory tracking.
 
 ---
 
 ## 💡 Why I Built This Project
 I started this project to strengthen my frontend fundamentals using **HTML, CSS, and JavaScript**.
 
-While building and using the app, I realised that real grocery applications require:
+As the project grew, I realised that real-world applications require:
 - Persistent data across devices
 - Clear separation of item states
 - A reliable backend source of truth
 - Support for real-world workflows (e.g., barcode scanning)
 
-Instead of stopping at a basic demo, I chose to evolve this single project into my full-stack learning journey.
+Instead of stopping at a simple demo, I chose to evolve this into a long-term full-stack learning project that mirrors how real products grow over time.
 
 ---
 
-## 🏡 Home Dashboard (In Progress)
+## 🏡 Home Dashboard (React - In Progress)
 - React + Vite frontend
 - Component-based Home layout
 - Top navigation tabs (Home, Calendar, Tasks, Recipes, Meal Plan, Shopping List)
-- Family Header section (UI-only)
-- Focus on layout, spacing, and hierarchy
+- Family Header section (UI-focused)
+- Emphasis on layout structure, spacing, and hierarchy
 
 ---
 
-## 🛒 Current Features (Grocery Tracker)
+## 🛒 Grocery Tracker – Current Capabilities
 - Add grocery items
-- Fetch grocery items from backend API
+- Fetch grocery items via backend REST API
 - Separate **pending** and **purchased** items
 - Mark items as purchased
 - Clean, minimal UI
-- Backend-powered grocery data (Express API)
-- Frontend persistence currently uses browser **LocalStorage**
 - Full CRUD operations backed by PostgreSQL
-- Data persists across refresh and server restarts
-- Frontend communicates exclusively via REST API
+- Data persists across refreshes and server restarts
+- Frontend communicates exclusively via REST APIs
+Earlier versions used **LocalStorage** for persistence.
+Current development focuses on an API-driven architecture backed by **PostgreSQL**.
 
 ---
 
-## 🧠 Backend Status (Milestone)
+## 🧠 Backend Status (Completed Milestone)
 
 The Smart Grocery Tracker is now fully backed by a PostgreSQL database.
 
 ### Implemented
-- REST API using Node.js and Express
-- PostgreSQL database integration
+- Node.js + Express REST API
+- PostgreSQL integration
 - Full CRUD operations:
   - Create grocery items
   - Fetch all items
   - Update item status (pending / purchased)
   - Delete items
-- API-driven frontend (no LocalStorage)
+- API-driven frontend (no LocalStorage dependency)
 
-This milestone completes the transition from a frontend-only prototype to a true full-stack application.
+This milestone completed the transition from a frontend-only prototype to a true full-stack application.
 
 ## 🧭 How This Project Evolved
 **Phase 1 — Frontend Foundation**
-- Built the interface using HTML and CSS
-- Implemented interactive behaviour using JavaScript
-- Practised DOM manipulation and event handling
-- Managed UI state changes between pending and purchased items
-- Improved layout and usability through iteration
+- HTML & CSS layout
+- JavaScript DOM manipulation and event handling
+- UI state changes (pending vs purchased)
 
 **Phase 2 — Data Persistence**
-- Introduced a data-driven render architecture
-- Implemented persistence using LocalStorage
-- Ensured items survive page refresh and browser restart
-- Designed with a “single source of truth” to support future backend migration
+- Data-driven rendering
+- Initial LocalStorage persistence
+- Preparation for backend migration
 
-**Phase 3 — UI Polish & Usability**
-- Improved readability (spacing + typography)
-- Added a centered card layout for focus
-- Enhanced visual distinction between pending and purchased items
-- Prioritised clarity over decoration
+**Phase 3 — Full-Stack Transition**
+- Express API introduction
+- PostgreSQL database integration
+- API-only frontend communication
+
+**Phase 4 — React Migration (Current)**
+- Rebuilding frontend using React
+- Component-based architecture
+- Incremental migration of features
 
 ---
 
-## 🎨 User Interface (v1.4)
-The UI is clean, readable, and distraction-free.
-
-A centered card layout keeps focus on the task, with clear visual separation between pending and purchased items. Spacing and contrast are intentionally minimal to improve scanning and usability.
+## 🎨 User Interface 
+The UI is intentionally clean and distraction-free, focusing on readability, spacing, and usability rather than decoration.
 
 ---
 
@@ -115,25 +115,24 @@ These limitations are intentional and help demonstrate why backend systems are r
 ## 🛠️ Roadmap
 - ✅ Express backend setup
 - ✅ Grocery APIs (GET, POST, PATCH, DELETE)
-- ✅ PostgreSQL database connection established
-- ⏳ Migrate all grocery logic from in-memory storage to PostgreSQL
+- ✅ PostgreSQL persistence
 - ⏳ Barcode scanning support
 - ⏳ Shopping history & re-add items
-- ⏳ Improved mobile & accessibility support
-- ⏳ React Home dashboard layout
+- ⏳ Mobile & accessibility improvements
+- ⏳ React Home dashboard completion
 - ⏳ Upcoming Events card UI
 - ⏳ Tasks & Shopping overview cards
-- ⏳ Connect Home UI with backend data
+- ⏳ Backend-connected Home dashboard
 
 ---
 
 ## 📚 What I’m Learning From This Project
-- Frontend fundamentals (HTML, CSS, JavaScript)
+- Frontend fundamentals & component design
 - UI state management and rendering logic
-- Why and when backend systems are needed
-- API-based communication (frontend ↔ backend)
-- Real-world data persistence
-- Product-oriented thinking
+- Backend API design
+- Database-driven persistence
+- Product-oriented development
+- Incremental system evolution
 
 ---
 
@@ -147,20 +146,7 @@ This mirrors how real software products evolve in professional environments.
 
 ---
 
-## 🌱 Future Vision
-The long-term goal is to turn this into a personal shopping assistant that:
-- Works across devices
-- Reduces manual tracking
-- Supports barcode scanning for faster shopping
-- Demonstrates a complete full-stack workflow
-
----
-
 ## 🧑‍💻 Technologies Used
-**Current**
-- Add React (Vite) under Current
-
-**Planned**
 
 **Frontend**
 - React (Vite)
@@ -215,13 +201,20 @@ Remove a grocery item
 
 ---
 
+## 🚧 Project Status
+🟡 Actively In progress
+ React migration and dashboard expansion are ongoing, with a focus on clean structure and real-world workflows.
+
+---
+
 ## 🧭 Project Structure
 ```txt
 smart-household-manager/
-├── client/    # Frontend
+├── client/    # Legacy Frontend
 ├── server/    # Backend (Express API in progress)
 ├── docs/      # Screenshots & diagrams
 ├── web/       # React Frontend
 └── README.md
 
+ 
 

@@ -1,4 +1,4 @@
-:root {
+/*:root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -85,4 +85,68 @@ body {
   button {
     background-color: #f9f9f9;
   }
+}
+*/
+.page-container {
+  max-width: 1500px;
+  padding: 5px;
+  margin: 0 auto;
+}
+
+.home-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+}
+
+.shopping-card-container, .mealplan-card-container, .upcoming-events-card-container, .tasks-card-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  width: 200px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  row-gap: 14px;
+}
+
+.upcoming-events-card-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  width: 100%;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  row-gap: 14px;
+}
+
+.upcoming-events-card-header {
+ 
+  background-color: #e0e0e0;
+  padding: 15px;
+  border-radius: 10px;
+  row-gap: 12px;
+  margin: 0;
+}
+
+.upcoming-events-card-title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.upcoming-events-card-body, .tasks-card-body, .shopping-card-body {
+ font-size: 0.95rem;
+}
+
+.upcoming-events-card-primary-action {
+  justify-self: first baseline;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  width: fit-content;
 }

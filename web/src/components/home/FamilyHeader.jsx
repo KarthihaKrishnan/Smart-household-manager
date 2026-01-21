@@ -1,11 +1,14 @@
 function FamilyHeader() {
   return (
-    <div className="container">
-      <section className="section">
-        <h4>Karthiha Krishnan</h4>
-        <p>date</p>
-      </section>
-    </div>
+    <section className="familyheader-container">
+      <div className="familyheader-greeting">
+        <h1>Karthiha Krishnan</h1>
+        <p>{new Date().toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric'
+        })}th</p>
+      </div>
+    </section>
   );
 }
 
