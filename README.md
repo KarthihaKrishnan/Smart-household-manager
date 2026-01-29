@@ -16,6 +16,7 @@ A modular full-stack web application evolving from a grocery tracker into a smar
 
 ## 📌 Project Overview
 Smart Household Manager is a real-world, learning-driven full-stack web application.
+
 It began as a **Smart Grocery Tracker** and is currently evolving into a React-based household dashboard that brings multiple daily-life features into a single Home view.
 
 Planned expansions include household tasks, bills, maintenance reminders, and inventory tracking.
@@ -35,13 +36,13 @@ Instead of stopping at a simple demo, I chose to evolve this into a long-term fu
 
 ---
 
-## 🏡 Home Dashboard (React - In Progress)
+## 🏡 Home Dashboard (React)
 - React + Vite frontend
 - Component-based Home layout
 - Top navigation tabs (Home, Calendar, Tasks, Recipes, Meal Plan, Shopping List)
 - Family Header section (UI-focused)
-- Emphasis on layout structure, spacing, and hierarchy
-
+- **Tasks card fully connected to backend**
+- Clean separation between UI components and API logic.
 ---
 
 ## 🛒 Grocery Tracker – Current Capabilities
@@ -56,13 +57,7 @@ Instead of stopping at a simple demo, I chose to evolve this into a long-term fu
 Earlier versions used **LocalStorage** for persistence.
 Current development focuses on an API-driven architecture backed by **PostgreSQL**.
 
----
-
-## 🧠 Backend Status (Completed Milestone)
-
-The Smart Grocery Tracker is now fully backed by a PostgreSQL database.
-
-### Implemented
+### Backend Implementation (Grocery)
 - Node.js + Express REST API
 - PostgreSQL integration
 - Full CRUD operations:
@@ -71,8 +66,34 @@ The Smart Grocery Tracker is now fully backed by a PostgreSQL database.
   - Update item status (pending / purchased)
   - Delete items
 - API-driven frontend (no LocalStorage dependency)
-
 This milestone completed the transition from a frontend-only prototype to a true full-stack application.
+
+---
+
+## 🧠 Backend Status 
+
+The Smart Grocery Tracker is now fully backed by a PostgreSQL database.
+
+## ✅ Tasks Module – Full-Stack (Completed)
+
+The **Tasks** feature is now fully implemented using a backend-driven architecture.
+
+### Capabilities
+- Fetch tasks from PostgreSQL database
+- Add new tasks via REST API
+- Toggle task completion status (completed / pending)
+- Delete tasks
+- UI updates instantly with backend as source of truth
+- Data persists across refreshes and server restarts
+
+### Technical Highlights
+- React state managed using `useState` and `useEffect`
+- Backend implemented with Express controllers and routes
+- PostgreSQL used for persistent storage
+- RESTful API communication (GET, POST, PATCH, DELETE)
+- No LocalStorage dependency
+
+This module represents my **first end-to-end full-stack feature built entirely without tutorials.**
 
 ## 🧭 How This Project Evolved
 **Phase 1 — Frontend Foundation**
@@ -103,10 +124,10 @@ The UI is intentionally clean and distraction-free, focusing on readability, spa
 ---
 
 ## ⚠️ Current Limitations
-At the moment:
-- Data is stored only in the browser (LocalStorage)
-- The list does not sync across devices
-- Clearing browser data removes the saved list
+- Authentication is not yet implemented.
+- Data is not user-specific.
+- No multi-device sync (planned with auth)
+- Some modules are still UI-only (Events, Meal Plan)
 
 These limitations are intentional and help demonstrate why backend systems are required in real applications.
 
@@ -116,13 +137,13 @@ These limitations are intentional and help demonstrate why backend systems are r
 - ✅ Express backend setup
 - ✅ Grocery APIs (GET, POST, PATCH, DELETE)
 - ✅ PostgreSQL persistence
+- ✅ Tasks module (Full CRUD with PostgreSQL)
 - ⏳ Barcode scanning support
-- ⏳ Shopping history & re-add items
+- ⏳ Shopping List CRUD (React + PostgreSQL)
 - ⏳ Mobile & accessibility improvements
 - ⏳ React Home dashboard completion
 - ⏳ Upcoming Events card UI
-- ⏳ Tasks & Shopping overview cards
-- ⏳ Backend-connected Home dashboard
+- ⏳ Backend-connected Home dashboard (remaining modules)
 
 ---
 
@@ -156,7 +177,7 @@ This mirrors how real software products evolve in professional environments.
 - PostgreSQL 
 - REST APIs
 
-## 🧩 Planned Backend Design
+## 🧩 Planned & Evolving Backend Design 
 To support data persistence, multi-device access, and future scalability, this project is designed with a backend-first data model.
 
 ### Database Schema (Planned – PostgreSQL)
@@ -184,9 +205,9 @@ To support data persistence, multi-device access, and future scalability, this p
 
 ---
 
-### REST API Endpoints
+## 🔌REST API Endpoints
 
-**Implemented**
+### Grocery Items
 - GET /api/grocery_items
 Fetch all grocery items 
 
@@ -199,11 +220,24 @@ Update grocery item status (pending / purchased)
 - DELETE /api/grocery_items/:id
 Remove a grocery item
 
+### Tasks
+- GET /api/tasks  
+  Fetch all tasks
+
+- POST /api/tasks  
+  Create a new task
+
+- PATCH /api/tasks/:id  
+  Toggle task completion
+
+- DELETE /api/tasks/:id  
+  Delete a task
+
 ---
 
 ## 🚧 Project Status
-🟡 Actively In progress
- React migration and dashboard expansion are ongoing, with a focus on clean structure and real-world workflows.
+🟡 Actively In Progress
+Tasks module completed; remaining modules under development.
 
 ---
 
