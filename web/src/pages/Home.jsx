@@ -12,8 +12,10 @@ function Home() {
             <div className="home-page-container">
                 <FamilyHeader/>
                 <UpcomingEventsCard />
-                <TasksCard />
-                <ShoppingCard />
+                <div className="action-row">
+                    <TasksCard />
+                    <ShoppingCard />
+                </div>
                 <MealPlanCard />
             </div>
         </div>
