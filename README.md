@@ -10,7 +10,7 @@ A modular full-stack web application evolving from a grocery tracker into a smar
 ---
 
 ## 🚀 Live Demo
-🔗 (https://karthihakrishnan.github.io/Smart-household-manager/)(In Progress)
+🔗 (https://karthihakrishnan.github.io/Smart-household-manager/) (In Progress)
 
 ---
 

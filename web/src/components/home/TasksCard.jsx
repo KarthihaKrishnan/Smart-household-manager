@@ -40,7 +40,13 @@ function TasksCard() {
   const handleToggleTaskCompletion = async (taskId) => {
     try {
       const response = await fetch(`http://localhost:3001/api/tasks/${taskId}`, 
-        { method: 'PATCH' }
+        { 
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ status: !tasks.completed }),
+        }
       );
       const updatedTask = await response.json();
 
@@ -63,7 +69,7 @@ function TasksCard() {
     } catch (error) {
       console.error('Error deleting task:', error);
     }
-  }
+  };
 
   return (
     <div className="tasks-card-container">
