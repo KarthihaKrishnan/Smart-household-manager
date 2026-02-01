@@ -5,7 +5,7 @@ A modular full-stack web application evolving from a grocery tracker into a smar
 **Role:** Aspiring Full-Stack Developer  
 📍 Queensland, Australia  
 
-![Smart Grocery Tracker UI](docs/ui-v1.4.png)
+![Smart Household Manager UI](docs/screenshots/home-v1.png)
 
 ---
 
