@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 }); 
 
 app.use('/api/health', healthRoutes);
-app.use('/api/grocery-items', groceryRoutes);
+app.use('/api/grocery', groceryRoutes);
 app.use('/api/tasks', tasksRoutes);
 
 app.use((req, res) => {

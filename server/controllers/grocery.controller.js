@@ -2,11 +2,12 @@ import pool from "../db/db.js";
 
 // GET function to return all grocery items
 export const getGroceryItems = async (req, res) => {
-    console.log("GET /grocery-items called");
-    const result = await pool.query(`SELECT * FROM grocery_items`);
+    console.log("GET /grocery called");
 
+    const result = await pool.query('SELECT * FROM grocery_items');
     res.status(201).json(result.rows);
-}
+};
+
 
 // POST function to add a grocery item
 export const postGroceryItems = async (req, res) => {

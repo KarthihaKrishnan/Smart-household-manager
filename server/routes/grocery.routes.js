@@ -4,15 +4,15 @@ import { postGroceryItems, getGroceryItems, deleteGroceryItems, updateGroceryIte
 const router = express.Router();
 
 // POST route to add a grocery item
-router.post('/grocery-items', postGroceryItems);
+router.post('/', postGroceryItems);
 
 // GET route to fetch all grocery items
-router.get('/grocery-items', getGroceryItems);
+router.get('/', getGroceryItems);
 
 // PUT route to update the Item status
-router.patch('/grocery-items/:id', updateGroceryItem);
+router.patch('/:id', updateGroceryItem);
 
 // DELETE route to delete the item from all grocery items
-router.delete('/grocery-items/:id', deleteGroceryItems);
+router.delete('/:id', deleteGroceryItems);
 
 export default router; 

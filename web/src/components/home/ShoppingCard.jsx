@@ -4,11 +4,29 @@ function ShoppingCard() {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState('');
 
-  useEffect(() => {
-    fetch('http://localhost:3001/api/grocery-items')
+ /* useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/grocery');
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setItems(data);
+        } else {
+          console.error('Expected an array but got:', data);  
+            setItems([]);
+        }
+      }
+      catch(error) {
+        console.error('Error fetching grocery items:', error);
+      } 
+    };
+    fetchItems();
+  }, []); */
+   useEffect(() => {
+     fetch('http://localhost:3001/api/grocery')
       .then((res) => {
         if (!res.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Network response was not ok');   
         }
         return res.json();
       })
@@ -19,12 +37,12 @@ function ShoppingCard() {
   const handleAddItem = async () => {
     if (!newItem.trim()) return;
     try {
-      const response = await fetch('http://localhost:3001/api/grocery-items', {
+      const res = await fetch('http://localhost:3001/api/grocery', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ item_name: newItem }),
       });
-      const savedItem = await response.json();
+      const savedItem = await res.json();
       setItems((prevItems) => [...prevItems, savedItem]);
       setNewItem('');
   }
@@ -41,7 +59,7 @@ function ShoppingCard() {
     currentItem.status === "pending" ? "purchased" : "pending";
 
     try {
-      const response = await fetch(`http://localhost:3001/api/grocery-items/${itemId}`, 
+      const response = await fetch(`http://localhost:3001/api/grocery/${itemId}`, 
         { method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -60,7 +78,7 @@ function ShoppingCard() {
 
   const handleDeleteItem = async(itemId) => {
     try {
-      await fetch(`http://localhost:3001/api/grocery-items/${itemId}`, {  
+      await fetch(`http://localhost:3001/api/grocery/${itemId}`, {  
         method: 'DELETE',
       });
       setItems((prevItems) => prevItems.filter(item => item.id !== itemId));
@@ -84,11 +102,13 @@ function ShoppingCard() {
               <input
                 type="checkbox"
                 checked={item.status === "purchased"}
+                //item_name={item.item_name}
                 onChange={() => handleToggleItemPurchased(item.id)}
               />
               <span 
                 style={{ 
-                  textDecoration: item.purchased ? 'line-through' : 'none', 
+                  textDecoration: 
+                  item.status === "purchased" ? 'line-through' : 'none', 
                   marginLeft: '8px',
                   marginRight: '8px',
                 }}
