@@ -81,16 +81,24 @@ This milestone completed the transition from a frontend-only prototype to a true
 
 The Smart Grocery Tracker is now fully backed by a PostgreSQL database.
 
-## 🔐 Authentication System (Phase 5 – In Progress)
-User registration has been implemented with backend validation and secure password storage.
+## 🔐 Authentication System (JWT-based)
+The backend now supports secure user authentication
 
-### Implemented
-- User registration endpoint
-- Email validation & trimming
-- Case-intensitive duplicate prevention
+### Implemented Features
+- User registration with validation
 - Password hashing using bcrypt
-- PostgrSQL users table
-- Structured API response
+- Login endpoint with secure password comparison
+- JWT token generation (expires in 1 hour)
+- Authentication middleware
+- Protected grocery routes
+- User-scoped database queries
+
+### Authentication Flow
+1. User registers → password hashed and stored securely.
+2. User logs in → JWT token generated.
+3. Frontend sends token via `Authorization: Bearer <token>` header.
+4. Middleware verifies token and attaches `req.user`.
+5. Grocery operations are filtered using `user_id`.
 
 ### Register Endpoint
 #### POST
@@ -112,13 +120,12 @@ User registration has been implemented with backend validation and secure passwo
   }
 }
 
-### Security Design
-- Passwords are hashed using bcrypt (salt rounds: 10)
-- Raw passwords are never stored
-- Email uniqueness enforced at database level
-- Validation performed before database insertion
-
-Login and JWT-based route protection will be implemented next.
+### Authentication Flow
+1. User registers → password hashed and stored securely.
+2. User logs in → JWT token generated.
+3. Frontend sends token via `Authorization: Bearer <token>` header.
+4. Middleware verifies token and attaches `req.user`.
+5. Grocery operations are filtered using `user_id`.
 
 ## ✅ Tasks Module – Full-Stack (Completed)
 
@@ -170,9 +177,11 @@ The UI is intentionally clean and distraction-free, focusing on readability, spa
 ---
 
 ## ⚠️ Current Limitations
-- Authentication is system implemented (Registration complete), Login & JWT protection in progress.
-- Data is not yet fully user-scoped in all modules.
+- Login and JWT authentication implemented.
+- Grocery module is fully user-scoped.
+- Task module is not fully user-scoped.
 - No multi-device sync (will be enabled via JWT-based authentication).
+- No household-sharing system yet (single-user ownership model).
 - Some modules are still UI-only (Events, Meal Plan)
 
 These limitations are intentional and help demonstrate why backend systems are required in real applications.
@@ -185,16 +194,18 @@ These limitations are intentional and help demonstrate why backend systems are r
 - ✅ PostgreSQL persistence
 - ✅ Tasks module (Full CRUD with PostgreSQL)
 - ✅ User registration with bcrypt hashing
+- ✅ Login endpoint
+- ✅ JWT token generation
+- ✅ Protected routes (auth middleware)
+- ⏳ Protect tasks module
+- ⏳ Frontend login/register integration
+- ⏳ Household sharing model
 - ⏳ Barcode scanning support
 - ⏳ Shopping List CRUD (React + PostgreSQL)
 - ⏳ Mobile & accessibility improvements
 - ⏳ React Home dashboard completion
 - ⏳ Upcoming Events card UI
 - ⏳ Backend-connected Home dashboard (remaining modules)
-- ⏳ Login endpoint
-- ⏳ JWT token generation
-- ⏳ Protected routes (auth middleware)
-
 
 ---
 
@@ -233,16 +244,16 @@ To support data persistence, multi-device access, and future scalability, this p
 
 ### Database Schema (Planned – PostgreSQL)
 **users**
-- id (SERIAL, primary key)
-- email (TEXT, unique)
-- password (hashed)
-- created_at (timestamp)
+- id (SERIAL PRIMARY KEY)
+- email (TEXT, UNIQUE, NOT NULL)
+- password (TEXT, hashed using bcrypt)
+- created_at (TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
 
 **grocery_items**
-- id (SERIAL, primary key)
-- user_id (foreign key -> users.id)
-- item_name
-- status (pending/purchased)
+- id (SERIAL PRIMARY KEY)
+- item_name (TEXT)
+- status (TEXT: pending/purchased)
+- user_id (INTEGER, foreign key → users.id)
 - created_at
 - updated_at
 
