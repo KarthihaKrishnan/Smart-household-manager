@@ -4,8 +4,14 @@ import pool from "../db/db.js";
 export const getGroceryItems = async (req, res) => {
     console.log("GET /grocery called");
 
-    const result = await pool.query('SELECT * FROM grocery_items');
-    res.status(201).json(result.rows);
+    const result = await pool.query(
+        `
+        SELECT * FROM grocery_items
+        WHERE user_id = $1
+        ORDER BY created_at DESC
+        `,
+        [req.user.id]);
+    res.status(200).json(result.rows);
 };
 
 
@@ -33,8 +39,9 @@ export const postGroceryItems = async (req, res) => {
             `
             SELECT id FROM grocery_items
             WHERE LOWER(item_name) = LOWER($1)
+            AND user_id = $2
             `,
-            [trimmedName]
+            [trimmedName, req.user.id]
         );
 
         if (duplicateCheck.rows.length > 0) {
@@ -43,11 +50,11 @@ export const postGroceryItems = async (req, res) => {
 
         const result = await pool.query(
             `
-            INSERT INTO grocery_items (item_name, status)
-            VALUES($1, $2)
+            INSERT INTO grocery_items (item_name, status, user_id)
+            VALUES($1, $2, $3)
             RETURNING *
             `, 
-            [trimmedName, "pending"]
+            [trimmedName, "pending", req.user.id]
         );
         res.status(201).json(result.rows[0]);
 
@@ -87,10 +94,10 @@ export const updateGroceryItem = async (req, res) => {
             UPDATE grocery_items
             SET status = $1,
                 updated_at = NOW()
-            WHERE id = $2
+            WHERE id = $2 AND user_id = $3
             RETURNING *
             `,
-            [status, id]
+            [status, id, req.user.id]
         );
 
         if (result.rows.length === 0) {
@@ -116,10 +123,10 @@ export const deleteGroceryItems = async (req, res) => {
         const result = await pool.query (
             `
             DELETE FROM grocery_items
-            WHERE id = $1
+            WHERE id = $1 AND user_id = $2
             RETURNING *
             `,
-            [id]
+            [id, req.user.id]
         );
         
         if (result.rows.length === 0) {

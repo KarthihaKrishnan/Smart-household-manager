@@ -56,3 +56,46 @@ export const registerUser = async (req, res) => {
             return res.status(500).json({ message: "Failed to register user" });    
         }
 }
+
+
+export const loginUser = async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: "Email and password are required" });
+    }
+
+    try {
+        const userResult = await pool.query(
+            `
+            SELECT * FROM users
+            WHERE LOWER(email) = LOWER($1)
+            `,
+            [email.trim()]
+        );
+        
+        if (userResult.rows.length === 0) {
+            return res.status(400).json({ message: "Invalid email or password" });
+        }
+
+        const user = userResult.rows[0];
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        
+        if (!passwordMatch) {
+            return res.status(400).json({ message: "Invalid email or password" });
+        }
+
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        return res.status(200).json({
+            message: "Login successful",
+            token: token,
+            user: {
+                id: user.id,
+                email: user.email
+            }
+        });
+    } catch (error) {
+        console.error("Error logging in user:", error);
+        return res.status(500).json({ message: "Failed to log in user" });
+    }
+}
