@@ -14,6 +14,13 @@ A modular full-stack web application evolving from a grocery tracker into a smar
 
 ---
 
+## 🏗 Architecture
+
+This project follows a separated frontend-backend architecture:
+
+- `/web` → React (Vite)
+- `/server` → Express + PostgreSQL API
+
 ## 📌 Project Overview
 Smart Household Manager is a real-world, learning-driven full-stack web application.
 
@@ -74,6 +81,45 @@ This milestone completed the transition from a frontend-only prototype to a true
 
 The Smart Grocery Tracker is now fully backed by a PostgreSQL database.
 
+## 🔐 Authentication System (Phase 5 – In Progress)
+User registration has been implemented with backend validation and secure password storage.
+
+### Implemented
+- User registration endpoint
+- Email validation & trimming
+- Case-intensitive duplicate prevention
+- Password hashing using bcrypt
+- PostgrSQL users table
+- Structured API response
+
+### Register Endpoint
+#### POST
+/api/auth/register
+
+#### Request Body
+
+{
+  "email": "user@example.com",
+  "password": "123456"
+}
+#### Success Response
+
+{
+  "message": "User registered successfully",
+  "user": {
+    "id": 1,
+    "email": "user@example.com"
+  }
+}
+
+### Security Design
+- Passwords are hashed using bcrypt (salt rounds: 10)
+- Raw passwords are never stored
+- Email uniqueness enforced at database level
+- Validation performed before database insertion
+
+Login and JWT-based route protection will be implemented next.
+
 ## ✅ Tasks Module – Full-Stack (Completed)
 
 The **Tasks** feature is now fully implemented using a backend-driven architecture.
@@ -124,9 +170,9 @@ The UI is intentionally clean and distraction-free, focusing on readability, spa
 ---
 
 ## ⚠️ Current Limitations
-- Authentication is not yet implemented.
-- Data is not user-specific.
-- No multi-device sync (planned with auth)
+- Authentication is system implemented (Registration complete), Login & JWT protection in progress.
+- Data is not yet fully user-scoped in all modules.
+- No multi-device sync (will be enabled via JWT-based authentication).
 - Some modules are still UI-only (Events, Meal Plan)
 
 These limitations are intentional and help demonstrate why backend systems are required in real applications.
@@ -138,12 +184,17 @@ These limitations are intentional and help demonstrate why backend systems are r
 - ✅ Grocery APIs (GET, POST, PATCH, DELETE)
 - ✅ PostgreSQL persistence
 - ✅ Tasks module (Full CRUD with PostgreSQL)
+- ✅ User registration with bcrypt hashing
 - ⏳ Barcode scanning support
 - ⏳ Shopping List CRUD (React + PostgreSQL)
 - ⏳ Mobile & accessibility improvements
 - ⏳ React Home dashboard completion
 - ⏳ Upcoming Events card UI
 - ⏳ Backend-connected Home dashboard (remaining modules)
+- ⏳ Login endpoint
+- ⏳ JWT token generation
+- ⏳ Protected routes (auth middleware)
+
 
 ---
 
@@ -182,14 +233,13 @@ To support data persistence, multi-device access, and future scalability, this p
 
 ### Database Schema (Planned – PostgreSQL)
 **users**
-- id (UUID, primary key)
-- name
-- email (unique)
-- created_at
-- updated_at
+- id (SERIAL, primary key)
+- email (TEXT, unique)
+- password (hashed)
+- created_at (timestamp)
 
 **grocery_items**
-- id (UUID, primary key)
+- id (SERIAL, primary key)
 - user_id (foreign key -> users.id)
 - item_name
 - status (pending/purchased)
