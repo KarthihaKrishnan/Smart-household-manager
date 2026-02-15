@@ -4,25 +4,7 @@ function ShoppingCard() {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState('');
 
- /* useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/api/grocery');
-        const data = await response.json();
-        if (Array.isArray(data)) {
-          setItems(data);
-        } else {
-          console.error('Expected an array but got:', data);  
-            setItems([]);
-        }
-      }
-      catch(error) {
-        console.error('Error fetching grocery items:', error);
-      } 
-    };
-    fetchItems();
-  }, []); */
-   useEffect(() => {
+  useEffect(() => {
      fetch('http://localhost:3001/api/grocery')
       .then((res) => {
         if (!res.ok) {
@@ -42,6 +24,11 @@ function ShoppingCard() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ item_name: newItem }),
       });
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert(errorData.message);
+        return;
+      }
       const savedItem = await res.json();
       setItems((prevItems) => [...prevItems, savedItem]);
       setNewItem('');
@@ -102,7 +89,6 @@ function ShoppingCard() {
               <input
                 type="checkbox"
                 checked={item.status === "purchased"}
-                //item_name={item.item_name}
                 onChange={() => handleToggleItemPurchased(item.id)}
               />
               <span 

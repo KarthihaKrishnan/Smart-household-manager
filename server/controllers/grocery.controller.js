@@ -52,7 +52,13 @@ export const postGroceryItems = async (req, res) => {
         res.status(201).json(result.rows[0]);
 
     }catch (error) {
-        console.error("Error creating grocery item: ", error);
+        if (error.code === '23505') {
+            return res.status(400).json({ 
+            message: "Item already exists" 
+            });
+        }
+
+        //console.error("Error creating grocery item: ", error);
         res.status(500).json({ message: "Failed to create grocery item" });
     }
 };     

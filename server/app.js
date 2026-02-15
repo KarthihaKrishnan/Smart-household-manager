@@ -3,6 +3,7 @@ import cors from "cors";
 import healthRoutes from './routes/health.routes.js';
 import groceryRoutes from './routes/grocery.routes.js';
 import tasksRoutes from './routes/tasks.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 app.use('/api/health', healthRoutes);
 app.use('/api/grocery', groceryRoutes);
 app.use('/api/tasks', tasksRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use((req, res) => {
     res.status(404).json({ message: "Route not found"});
