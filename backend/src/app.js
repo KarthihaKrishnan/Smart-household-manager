@@ -1,9 +1,10 @@
 import express from "express";
 import cors from "cors";
-import healthRoutes from './routes/health.routes.js';
-import groceryRoutes from './routes/grocery.routes.js';
-import tasksRoutes from './routes/tasks.routes.js';
-import authRoutes from './routes/auth.routes.js';
+import healthRoutes from './src/routes/health.routes.js';
+import groceryRoutes from './src/routes/grocery.routes.js';
+import tasksRoutes from './src/routes/tasks.routes.js';
+import authRoutes from './src/routes/auth.routes.js';
+import errorHandler from "./src/middleware/errorHandler.js";
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.use('/api/auth', authRoutes);
 app.use((req, res) => {
     res.status(404).json({ message: "Route not found"});
 });
+
+app.use(errorHandler);
 
 export default app;
 

@@ -1,23 +1,23 @@
-import pool from "../db/db.js";
+import pool from "../config/db.js";
 
 // GET function to return all grocery items
-export const getGroceryItems = async (req, res) => {
-    console.log("GET /grocery called");
-
-    const result = await pool.query(
-        `
-        SELECT * FROM grocery_items
-        WHERE user_id = $1
-        ORDER BY created_at DESC
-        `,
-        [req.user.id]);
-    res.status(200).json(result.rows);
+export const getGroceryItems = async (req, res, next) => {
+    try {
+        const result = await pool.query(
+            `
+            SELECT * FROM grocery_items
+            WHERE user_id = $1
+            ORDER BY created_at DESC
+            `,
+            [req.user.id]);
+            res.status(200).json(result.rows);
+    }catch (error) {
+        next(error);
+    }
 };
 
-
 // POST function to add a grocery item
-export const postGroceryItems = async (req, res) => {
-    console.log("POST /grocery-items called", req.body);
+export const postGroceryItems = async (req, res, next) => {
     const { item_name } = req.body;
 
     if ( !item_name || typeof item_name !== "string" ) {
@@ -64,15 +64,12 @@ export const postGroceryItems = async (req, res) => {
             message: "Item already exists" 
             });
         }
-
-        //console.error("Error creating grocery item: ", error);
-        res.status(500).json({ message: "Failed to create grocery item" });
+        next(error);
     }
 };     
 
 //PUT function to update the status of a grocery item
-export const updateGroceryItem = async (req, res) => {
-    console.log("PATCH /grocery-items/:id called", req.params, req.body);
+export const updateGroceryItem = async (req, res, next) => {
     const { id } = req.params;
     const { status } = req.body;
 
@@ -85,7 +82,7 @@ export const updateGroceryItem = async (req, res) => {
     }
 
     if ( !["pending", "purchased"].includes(status)) {
-        return res.status(404).json({ message: "Invalid status value" });
+        return res.status(400).json({ message: "Invalid status value" });
     }
 
     try {
@@ -104,19 +101,18 @@ export const updateGroceryItem = async (req, res) => {
             return res.status(404).json({ message: "Item not found" });
         }
 
-        return res.json(result.rows[0]);
+        res.status(200).json(result.rows[0]);
     }catch (error) {
-        console.error("Error updating grocery item: ", error);
-        res.status(500).json({ message: "Failed to update grocery item" });
+        next(error);
     }
 };
 
 // DELETE function to remove an item by id
-export const deleteGroceryItems = async (req, res) => {
+export const deleteGroceryItems = async (req, res, next) => {
     const { id } = req.params;
 
     if (!id) {
-        res.status(404).json({ message: `Item with ID ${id} not found!`});
+        return res.status(400).json({ message: `ID is required`});
     }
 
     try {
@@ -132,10 +128,10 @@ export const deleteGroceryItems = async (req, res) => {
         if (result.rows.length === 0) {
             return res.status(404).json({ message: "Item not found" });
         }
-        return res.json(result.rows[0]);
+        res.status(200).json(result.rows[0]);
     }catch (error) {
-        console.error("Error deleting grocery item: ", error);
-        res.status(500).json({ message: "Failed to delete grocery item" });
+        next(error);
     }
 };
+
 

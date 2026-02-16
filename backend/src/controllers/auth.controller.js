@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import pool from '../db/db.js';
+import pool from '../config/db.js';
 
 // Controller function to handle user registration
 export const registerUser = async (req, res) => {
@@ -79,10 +79,16 @@ export const loginUser = async (req, res) => {
         }
 
         const user = userResult.rows[0];
-        const passwordMatch = await bcrypt.compare(password, user.password);
+        const trimmedPassword = password.trim();
+        const passwordMatch = await bcrypt.compare(trimmedPassword, user.password);
         
         if (!passwordMatch) {
             return res.status(400).json({ message: "Invalid email or password" });
+        }
+
+        if (!process.env.JWT_SECRET) {
+            console.error("JWT_SECRET is not defined in environment variables");
+            return res.status(500).json({ message: "Server configuration error" });
         }
 
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });

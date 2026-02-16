@@ -1,4 +1,4 @@
-import pool from '../db/db.js';
+import pool from '../config/db.js';
 
 // GET function to return all tasks
 export const getTasks = async(req, res) => {
