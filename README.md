@@ -196,12 +196,14 @@ cd server
 npm install
 
 ### Create .env file:
+```bash
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=smart_household
 DB_USER=postgres
 DB_PASSWORD=yourpassword
 JWT_SECRET=your_secret_key
+```
 
 ### Start server:
 npm run dev
