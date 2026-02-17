@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
-import healthRoutes from './src/routes/health.routes.js';
-import groceryRoutes from './src/routes/grocery.routes.js';
-import tasksRoutes from './src/routes/tasks.routes.js';
-import authRoutes from './src/routes/auth.routes.js';
-import errorHandler from "./src/middleware/errorHandler.js";
+import healthRoutes from './routes/health.routes.js';
+import groceryRoutes from './routes/grocery.routes.js';
+import tasksRoutes from './routes/tasks.routes.js';
+import authRoutes from './routes/auth.routes.js';
+import errorHandler from "./middleware/errorMiddleware.js";
 
 const app = express();
 

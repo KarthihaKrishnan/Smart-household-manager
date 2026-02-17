@@ -5,7 +5,7 @@ function ShoppingCard() {
   const [newItem, setNewItem] = useState('');
 
   useEffect(() => {
-     fetch('http://localhost:3001/api/grocery')
+     fetch('http://localhost:5000/api/grocery')
       .then((res) => {
         if (!res.ok) {
           throw new Error('Network response was not ok');   
@@ -19,7 +19,7 @@ function ShoppingCard() {
   const handleAddItem = async () => {
     if (!newItem.trim()) return;
     try {
-      const res = await fetch('http://localhost:3001/api/grocery', {
+      const res = await fetch('http://localhost:5000/api/grocery', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ item_name: newItem }),
@@ -46,7 +46,7 @@ function ShoppingCard() {
     currentItem.status === "pending" ? "purchased" : "pending";
 
     try {
-      const response = await fetch(`http://localhost:3001/api/grocery/${itemId}`, 
+      const response = await fetch(`http://localhost:5000/api/grocery/${itemId}`, 
         { method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ function ShoppingCard() {
 
   const handleDeleteItem = async(itemId) => {
     try {
-      await fetch(`http://localhost:3001/api/grocery/${itemId}`, {  
+      await fetch(`http://localhost:5000/api/grocery/${itemId}`, {  
         method: 'DELETE',
       });
       setItems((prevItems) => prevItems.filter(item => item.id !== itemId));

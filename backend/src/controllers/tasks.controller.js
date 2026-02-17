@@ -2,10 +2,17 @@ import pool from '../config/db.js';
 
 // GET function to return all tasks
 export const getTasks = async(req, res) => {
-  console.log('GET /tasks called');
-
-  const result = await pool.query('SELECT * FROM tasks');
-  res.status(201).json(result.rows);
+  try { 
+    const result = await pool.query(
+      `
+      SELECT * FROM tasks
+      WHERE user_id = $1
+      ORDER BY created_at DESC
+      `, [req.user.id]);
+    res.status(201).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
 };
 
 // POST function to add a task
@@ -41,17 +48,16 @@ export const postTask = async (req, res) => {
 
       const result = await pool.query(
         `
-        INSERT INTO tasks (title, completed) 
-        VALUES ($1, $2) 
+        INSERT INTO tasks (title, completed, user_id) 
+        VALUES ($1, $2, $3) 
         RETURNING *
         `,
-        [trimmedTitle, "false"]
+        [trimmedTitle, false, req.user.id]
     );
     res.status(201).json(result.rows[0]);
     
   } catch (error) {
-    console.error('Error inserting task:', error);
-    res.status(500).json({ message: 'Failed to post task' });
+    next(error);
   }
 };
 
@@ -76,9 +82,10 @@ export const updateTask = async (req, res) => {
       SET completed = $1,
           updated_at = NOW()
       WHERE id = $2 
+      AND user_id = $3
       RETURNING *
       `,
-      [status, id]
+      [status, id, req.user.id]
     );
 
     if (result.rows.length === 0) {
@@ -86,8 +93,7 @@ export const updateTask = async (req, res) => {
     }
     return res.json(result.rows[0]);
   } catch (error) {
-    console.error('Error updating task: ', error);
-    return res.status(500).json({ message: 'Failed to update task' });
+    next(error);
   }
 };
 
@@ -103,10 +109,10 @@ export const deleteTask = async (req, res) => {
     const result = await pool.query(
       `
       DELETE FROM tasks 
-      WHERE id = $1 
+      WHERE id = $1 AND user_id = $2
       RETURNING *
       `,
-      [id]
+      [id, req.user.id]
     );
 
     if (result.rows.length === 0) {
@@ -116,8 +122,7 @@ export const deleteTask = async (req, res) => {
     return res.json(result.rows[0]);
 
   } catch (error) {
-    console.error('Error deleting task:', error);
-    return res.status(500).json({ message: 'Failed to delete task' });
+    next(error);
   }
 };
 
