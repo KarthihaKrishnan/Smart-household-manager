@@ -8,6 +8,7 @@ Built with a separated frontend–backend architecture using React (Vite), Node.
 📍 Queensland, Australia  
 
 ![Smart Household Manager UI](docs/screenshots/home-v1.png)
+
 ---
 
 ## 🚀 Live Demo
@@ -15,17 +16,19 @@ Frontend (In Progress):
 🔗 (https://karthihakrishnan.github.io/Smart-household-manager/) 
 
 Backend: Local development environment (deployment planned)
+
 ---
 
 ## 🏗 Architecture
 
 This project follows a clean separated frontend-backend architecture:
-
+```bash
 smart-household-manager/
 ├── frontend/ → React (Vite) Frontend
 ├── backend/  → Express REST API + PostgreSQL
 ├── docs/     → Screenshots & diagrams
 └── README.md
+```
 
 ### Frontend (`/frontend`)
 - React (Vite)
@@ -41,9 +44,11 @@ smart-household-manager/
 - User-scoped database queries
 - Modular structure inside `src/`
 This separation allows independent scaling, clean maintainability, and production-style structure.
+
 ---
 
 ## 🔄 Application Flow
+```bash
 User Action
    ↓
 React UI (Axios request)
@@ -55,13 +60,14 @@ PostgreSQL Query
 JSON Response
    ↓
 React State Update → UI Re-render
+```
 
 All frontend operations communicate exclusively through REST APIs.
 PostgreSQL serves as the source of truth.
+
 ---
 
 ## 🔐 Authentication System (JWT-based)
-
 ### Implemented Features
 - User registration with validation
 - Password hashing using bcrypt
@@ -77,6 +83,7 @@ PostgreSQL serves as the source of truth.
 3. Token sent via Authorization: Bearer <token>.
 4. Middleware verifies token and attaches `req.user`.
 5. Routes filter data by user_id.
+
 ---
 
 ## 🛒 Grocery Module (Full-Stack)
@@ -92,6 +99,7 @@ PostgreSQL serves as the source of truth.
 
 Earlier versions used LocalStorage.
 The system is now fully API-driven.
+
 ---
 
 ## ✅ Tasks Module (Full-Stack)
@@ -104,6 +112,7 @@ The system is now fully API-driven.
 - REST API communication (GET, POST, PATCH, DELETE)
 
 The Tasks module represents a complete end-to-end feature built without tutorial guidance.
+
 ---
 
 ## 🧑‍💻 Technology Stack
@@ -124,7 +133,7 @@ The Tasks module represents a complete end-to-end feature built without tutorial
 - VS Code
 - Postman
 - Git & GitHub.
--
+
 ---
 
 ## 🔌 REST API Endpoints
@@ -133,16 +142,18 @@ The Tasks module represents a complete end-to-end feature built without tutorial
 |--------|----------|------------|
 | POST | /api/auth/register	| Register new user |
 | POST | /api/auth/login |Login user |
-|--------|----------|------------|
+
 ### Grocery
 | Method | Endpoint	| Description |
+|--------|----------|------------|
 | GET | /api/grocery_items | Fetch all items |
 | POST | /api/grocery_items |	Add item |
 | PATCH	| /api/grocery_items/:id | Update status |
 | DELETE | /api/grocery_items/:id |	Delete item |
-|--------|----------|------------|
+
 ### Tasks
 | Method | Endpoint	| Description |
+|--------|----------|------------|
 | GET |	/api/tasks | Fetch all tasks |
 | POST | /api/tasks |	Create task |
 | PATCH |	/api/tasks/:id | Toggle completion |
@@ -172,7 +183,7 @@ The Tasks module represents a complete end-to-end feature built without tutorial
 - user_id (INTEGER → users.id)
 - created_at
 - updated_at
--
+
 ---
 
 ## ⚙️ Local Development Setup
@@ -204,6 +215,7 @@ VITE_API_URL=http://localhost:5000
 
 ### Start frontend:
 npm run dev
+
 ---
 
 ## 🛠️ Roadmap
@@ -215,7 +227,7 @@ npm run dev
 - Mobile responsiveness improvements
 - Full dashboard integration
 - Production deployment (Render / Railway / AWS)
--
+
 ---
 ## 🎯 Engineering Approach
 This project demonstrates:
@@ -228,6 +240,7 @@ This project demonstrates:
 - Production-style architecture
 
 Rather than building multiple small demos, this application evolves continuously to mirror real-world product development.
+
 ---
 
 ## 📌 Project Status
