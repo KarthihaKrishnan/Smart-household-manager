@@ -1,2 +1,0 @@
-const beep = new Audio("beep.mp3");
-beep.play();
